@@ -18,7 +18,7 @@ namespace FamilyChore.Server.Utilities
 
         public int MaxId<T>(string filePath) where T : class
         {
-            var data = _jsonService.LoadData<T>(filePath);
+            var data = LoadData<T>(filePath);
             if (data == null || !data.Any())
             {
                 return 0;
@@ -26,6 +26,17 @@ namespace FamilyChore.Server.Utilities
 
             var maxId = data.Max(item => (int)item.GetType().GetProperty("Id").GetValue(item));
             return maxId;
+        }
+        /// <summary>
+        /// This will allow for the Utilities MaxId to functin properly
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        private List<T> LoadData<T>(string filePath) where T : class
+        {
+            var jsonData = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<List<T>>(jsonData);
         }
     }
 }

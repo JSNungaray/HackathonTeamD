@@ -29,7 +29,7 @@ namespace FamilyChore.Server.Manage
         {
             int id = _utils.MaxId<User>(filePath);
 
-            _jsonService.AddUser(filePath, new User
+            _jsonService.AddUser( new User
             {
                 ID = id,
                 UserName = newUser.UserName,

@@ -70,23 +70,43 @@ namespace FamilyChore.Server.Services
 
 
         // Chore CRUD operations
-        public void SaveChores(List<Chore> chores)
-        {
-            var jsonString = JsonSerializer.Serialize(chores, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(chorePath, jsonString);
-        }
-     
         public List<Chore> LoadChores()
         {
             var jsonString = File.ReadAllText(chorePath);
             return JsonSerializer.Deserialize<List<Chore>>(jsonString) ?? new List<Chore>();
         }
 
+        public Chore GetChoreById(int id)
+        {
+            var chores = LoadChores();
+            return chores.FirstOrDefault(c => c.Id == id);
+        }
+
+        public Chore GetChoreByName(string choreName)
+        {
+            var chores = LoadChores();
+            return chores.FirstOrDefault(c => c.ChoreName == choreName);
+        }
+
+
+        public void SaveChores(List<Chore> chores)
+        {
+            var jsonString = JsonSerializer.Serialize(chores, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(chorePath, jsonString);
+        }
+
+        /// <summary>
+        /// TODO: Verify Tasks are handled correctly
+        /// </summary>
+        /// <param name="chore"></param>
         public void AddChore(Chore chore)
         {
             var chores = LoadChores();
             chores.Add(chore);
             SaveChores( chores);
+            Chore newChore = chores.Last();  //VALIDATE THIS
+            return newChore
+
         }
 
         public void UpdateChore(Chore updatedChore)
@@ -115,7 +135,7 @@ namespace FamilyChore.Server.Services
                 }
                 ///TODO: Add a way to remove tasks that are not in the updated chore
                 ///and verify tasks are updating correctly
-                SaveChores(filePath, chores);
+                SaveChores(chores);
             }
         }
 
