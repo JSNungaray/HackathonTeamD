@@ -2,7 +2,7 @@
 
 namespace FamilyChore.Server.Controllers
 {
-    public class Administrative : Controller
+    public class ChoresController : Controller
     {
         public IActionResult Index()
         {

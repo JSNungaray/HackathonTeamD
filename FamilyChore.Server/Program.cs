@@ -1,8 +1,14 @@
+using FamilyChore.Server.Services;
+using FamilyChore.Server.Utilities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<JSONService>();
+builder.Services.AddScoped<Utilities>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
