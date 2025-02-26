@@ -2,8 +2,6 @@
 
 @plugin "tailwindcss-animate";
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -12,9 +10,6 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-  
-  width: 100dvw;
-  height: 100dvh;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -60,6 +55,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
+  width: 100dvw;
+  height: 100dvh;
 }
 
 .dark {
