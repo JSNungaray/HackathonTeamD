@@ -1,3 +1,40 @@
-{
-
-}
+[
+  {
+    "ID": 1,
+    "ChoreName": "Clean the kitchen",
+    "Frequency": "Daily",
+    "Tasks": [
+      {
+        "ID": 1,
+        "TaskName": "Wash dishes",
+        "TaskDescription": "Wash all the dishes in the sink",
+        "UserType": "Child"
+      },
+      {
+        "ID": 2,
+        "TaskName": "Wipe counters",
+        "TaskDescription": "Wipe down all kitchen counters",
+        "UserType": "Child"
+      }
+    ]
+  },
+  {
+    "ID": 2,
+    "ChoreName": "Mow the lawn",
+    "Frequency": "Weekly",
+    "Tasks": [
+      {
+        "ID": 3,
+        "TaskName": "Mow front yard",
+        "TaskDescription": "Mow the grass in the front yard",
+        "UserType": "Parent"
+      },
+      {
+        "ID": 4,
+        "TaskName": "Mow back yard",
+        "TaskDescription": "Mow the grass in the back yard",
+        "UserType": "Parent"
+      }
+    ]
+  }
+]

@@ -1,3 +1,16 @@
-{
-
-}
+[
+  {
+    "ID": 1,
+    "UserID": 1,
+    "ChoreID": 1,
+    "AssignedDate": "2025-02-01T00:00:00",
+    "DueDate": "2025-02-02T00:00:00"
+  },
+  {
+    "ID": 2,
+    "UserID": 2,
+    "ChoreID": 2,
+    "AssignedDate": "2025-02-01T00:00:00",
+    "DueDate": "2025-02-08T00:00:00"
+  }
+]
