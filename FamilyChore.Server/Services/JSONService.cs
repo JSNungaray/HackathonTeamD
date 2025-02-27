@@ -220,11 +220,13 @@ namespace FamilyChore.Server.Services
         public string GenerateChoreAssignmentReport()
         {
             var assignments = LoadAssignments();
+            var chores = LoadChores();
+            var users = LoadUsers();
+
             var report = assignments.Select(a => new
             {
-                a.ID,
-                a.ChoreId,
-                a.UserId,
+                UserName = users.FirstOrDefault(u => u.ID == a.UserId)?.UserName,
+                ChoreName = chores.FirstOrDefault(c => c.ID == a.ChoreId)?.ChoreName,               
                 AssignmentDate = a.AssignmentDate?.ToString("yyyy-MM-dd"),
                 a.ChoreStatus,
                 a.Consequence,
