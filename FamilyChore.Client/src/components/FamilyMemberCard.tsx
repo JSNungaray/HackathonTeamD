@@ -26,7 +26,7 @@ export function FamilyMemberCard({
       data-testid={`family-member-card-${name.toLowerCase().replace(/\s+/g, '-')}`}
       className={cn(
         "w-full transition-colors cursor-pointer group relative touch-pan-y",
-        isSelected ? "bg-accent" : "hover:bg-accent/50"
+        isSelected ? "bg-accent dark:bg-accent" : "hover:bg-accent/50 dark:hover:bg-accent/50"
       )}
       onClick={onClick}
     >
