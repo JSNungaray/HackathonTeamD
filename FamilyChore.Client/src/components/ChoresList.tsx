@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { PlusIcon } from "@radix-ui/react-icons"
 import { Modal } from "@/components/ui/modal"
 import { ChoreEditForm } from "@/components/ChoreEditForm"
+import { Chore as ChoreFormModel } from "@/components/Chore"
 
 interface FamilyMember {
   id: string
@@ -26,6 +27,14 @@ interface ChoresListProps {
 
 export function ChoresList({ chores }: ChoresListProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [newChore, setNewChore] = useState<ChoreFormModel>({
+    id: 0,
+    name: '',
+    description: '',
+    dueDate: '',
+    status: 'pending',
+    assignedTo: ''
+  })
   return (
     <>
       <div className="container mx-auto p-4" data-testid="chores-list">
@@ -59,10 +68,10 @@ export function ChoresList({ chores }: ChoresListProps) {
         onClose={() => setIsModalOpen(false)}
       >
         <ChoreEditForm 
-          editedChore={{ id: 0, name: '', description: '', dueDate: '', status: '', assignedTo: '' }}
+          editedChore={newChore}
           onSubmit={async (e) => { e.preventDefault(); }}
           onCancel={() => setIsModalOpen(false)}
-          onChange={() => { }}
+          onChange={(editedChore) => setNewChore(editedChore)}
         />
       </Modal>
     </>
