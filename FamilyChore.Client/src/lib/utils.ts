@@ -1,4 +1,5 @@
 import { User } from "@/App";
+import { Chore } from "@/components/Chore";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -6,9 +7,30 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+// send api request
+const sendRequest = async (method: string, uri: string, data?: any) => {
+  if (data == null) {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/${uri}`);
+    return response;
+  }
+  const response = await fetch(`${import.meta.env.VITE_API_URL}/${uri}`, { 
+    method: method,
+    body: JSON.stringify(data)
+  });
+  return response;
+}
+
+// chore api functions
+export const fetchChores = async (): Promise<Chore[]> => {
+  const response = await sendRequest('GET', 'Chores/GetChoreList');
+  return response.json();
+}
+
+
+// user api functions
 export const fetchUsers = async (): Promise<User[]> => {
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/User/GetUserList`);
+    const response = await sendRequest('GET', 'User/GetUserList');
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -34,3 +56,23 @@ export const fetchUsers = async (): Promise<User[]> => {
     return [];
   }
 };
+
+export const SaveUser = async (user: User) => {
+  var response = null;
+  if (user.id == null) {
+    response = await sendRequest('POST', 'User/AddUser', user);
+  } else {
+    response = await sendRequest('PUT', 'User/UpdateUser', user);
+  }
+  return response;
+}
+
+export const DeleteUser = async (id: number) => {
+  return await sendRequest('DELETE', `User/DeleteUser?id=${id}`);
+}
+
+export const GetUserById = async (id: number) => {
+  const response = await sendRequest('GET', `User/GetUserById?id=${id}`);
+  const data = await response.json();
+  return data.map((user: User) => ({ id: user.id, userName: user.userName, userType: user.userType }));
+}

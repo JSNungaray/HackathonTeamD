@@ -6,8 +6,8 @@ import { ChoreEditForm } from "@/components/ChoreEditForm"
 
 export interface Chore {
   id?: number
-  name: string
-  description: string
+  choreName: string
+  frequency?: number
   assignedTo: string
   dueDate: string
   status: string
