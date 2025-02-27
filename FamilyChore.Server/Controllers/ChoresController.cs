@@ -51,5 +51,12 @@ namespace FamilyChore.Server.Controllers
         }
 
 
+        [HttpPut("UpdateChore")]
+        public IActionResult UpdateChore(Chore chore)
+        {
+            _manageChore.UpdateChore(chore);
+            return new OkResult();
+        }
+
     }
 }

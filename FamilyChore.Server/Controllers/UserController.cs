@@ -15,39 +15,39 @@ namespace FamilyChore.Server.Controllers
             _manageUser = manageUser;
         }
 
-        [HttpGet(Name = "GetUserById")]
+        [HttpGet("GetUserById")]
         public IActionResult GetUserById(int id)
         {
             return new OkObjectResult(_manageUser.GetUserById(id));
         }
 
-        [HttpGet(Name = "GetUserByName")]
+        [HttpGet("GetUserByName")]
         public IActionResult GetUserByName(string username)
         {
             return new OkObjectResult(_manageUser.GetUserByName(username));
         }
 
-        [HttpGet(Name = "GetUserList")]
+        [HttpGet("GetUserList")]
         public IActionResult GetUserList(int id)
         {
             return new OkObjectResult(_manageUser.LoadUsers());
         }
 
 
-        [HttpPost(Name = "AddUser")]
+        [HttpPost("AddUser")]
         public IActionResult AddUser(User user)
         {
             return new OkObjectResult(_manageUser.AddUser(user));
         }
 
-        [HttpGet(Name = "UpdateUser")]
+        [HttpPut("UpdateUser")]
         public IActionResult UpdateUser(User user)
         {
             _manageUser.UpdateUser(user);
             return new OkResult();
         }
 
-        [HttpGet(Name = "DeleteUser")]
+        [HttpDelete("DeleteUser")]
         public IActionResult DeleteUser(int id)
         {
             _manageUser.DeleteUser(id);
