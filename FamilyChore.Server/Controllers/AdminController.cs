@@ -11,6 +11,11 @@ namespace FamilyChore.Server.Controllers
     {
         private readonly IManageAdmin _manageAdmin;
 
+        public AdminController(IManageAdmin manageAdmin)
+        {
+            _manageAdmin = manageAdmin;
+        }
+
         [HttpPut("UpdateAssignment")]
         public IActionResult UpdateAssignment(ChoreAssignment assignment)
         {
