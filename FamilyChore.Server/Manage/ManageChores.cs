@@ -83,5 +83,6 @@ namespace FamilyChore.Server.Manage
         {
             _jsonService.UpdateChore(updatedChore);
         }
+      
     }
 }
