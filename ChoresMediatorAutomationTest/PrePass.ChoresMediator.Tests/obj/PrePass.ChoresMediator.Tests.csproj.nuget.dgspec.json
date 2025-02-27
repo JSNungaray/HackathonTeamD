@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hema.Sivakumar\\OneDrive - PrePass\\Hema\\Hackathon 2025\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj": {}
+    "C:\\Users\\Hema.Sivakumar\\source\\repos\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hema.Sivakumar\\OneDrive - PrePass\\Hema\\Hackathon 2025\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj": {
+    "C:\\Users\\Hema.Sivakumar\\source\\repos\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hema.Sivakumar\\OneDrive - PrePass\\Hema\\Hackathon 2025\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\Hema.Sivakumar\\source\\repos\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj",
         "projectName": "PrePass.ChoresMediator.Tests",
-        "projectPath": "C:\\Users\\Hema.Sivakumar\\OneDrive - PrePass\\Hema\\Hackathon 2025\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj",
+        "projectPath": "C:\\Users\\Hema.Sivakumar\\source\\repos\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj",
         "packagesPath": "C:\\Users\\Hema.Sivakumar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hema.Sivakumar\\OneDrive - PrePass\\Hema\\Hackathon 2025\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\obj\\",
+        "outputPath": "C:\\Users\\Hema.Sivakumar\\source\\repos\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

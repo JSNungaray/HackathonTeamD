@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jz1d485qWTQ=",
+  "dgSpecHash": "BZOjiV5PIrI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hema.Sivakumar\\OneDrive - PrePass\\Hema\\Hackathon 2025\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj",
+  "projectFilePath": "C:\\Users\\Hema.Sivakumar\\source\\repos\\HackathonTeamD\\ChoresMediatorAutomationTest\\PrePass.ChoresMediator.Tests\\PrePass.ChoresMediator.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hema.Sivakumar\\.nuget\\packages\\coverlet.collector\\6.0.2\\coverlet.collector.6.0.2.nupkg.sha512",
     "C:\\Users\\Hema.Sivakumar\\.nuget\\packages\\microsoft.applicationinsights\\2.22.0\\microsoft.applicationinsights.2.22.0.nupkg.sha512",
