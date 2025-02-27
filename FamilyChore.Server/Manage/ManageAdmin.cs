@@ -21,7 +21,9 @@ namespace FamilyChore.Server.Manage
         private readonly string filePath = "Data/ChoreAssignment.json";
         private readonly IUtilities _utils;
 
-        public ManageAdmin( IUtilities utils) {
+        public ManageAdmin(JSONService jsonService, IUtilities utils)
+        {
+            _jsonService = jsonService;
             _utils = utils;
         }
 
