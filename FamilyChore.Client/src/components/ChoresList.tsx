@@ -21,9 +21,9 @@ interface ChoresListProps {
 
 export function ChoresList({ chores }: ChoresListProps) {
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-6">Chores</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="container mx-auto p-4" data-testid="chores-list">
+      <h2 className="text-2xl font-bold mb-6" data-testid="chores-heading">Chores</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-testid="chores-grid">
         {chores.map((chore) => (
           <ChoreCard
             key={chore.id}

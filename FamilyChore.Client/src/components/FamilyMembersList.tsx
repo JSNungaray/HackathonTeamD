@@ -16,10 +16,11 @@ interface FamilyMembersListProps {
 
 export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMembersListProps) {
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-semibold mb-4">Family Members</h2>
-      <div className="flex gap-2 mb-4">
+    <div className="p-4" data-testid="family-members-list">
+      <h2 className="text-lg font-semibold mb-4" data-testid="family-members-heading">Family Members</h2>
+      <div className="flex gap-2 mb-4" data-testid="family-members-filters">
         <Button
+          data-testid="filter-all"
           variant={selectedMemberId === "all" ? "default" : "outline"}
           size="sm"
           className="flex-1"
@@ -28,6 +29,7 @@ export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMe
           All
         </Button>
         <Button
+          data-testid="filter-unassigned"
           variant={selectedMemberId === "unassigned" ? "default" : "outline"}
           size="sm"
           className="flex-1"
@@ -36,7 +38,7 @@ export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMe
           Unassigned
         </Button>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-2" data-testid="family-members-grid">
         {mockFamilyMembers.map((member) => (
           <FamilyMemberCard
             key={member.id}

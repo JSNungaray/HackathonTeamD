@@ -55,20 +55,20 @@ function App() {
       )
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
+    <div className="min-h-screen bg-background" data-testid="app">
+      <header className="border-b" data-testid="app-header">
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold">Family Chores</h1>
+          <h1 className="text-2xl font-bold" data-testid="app-title">Family Chores</h1>
         </div>
       </header>
-      <div className="flex flex-col md:flex-row">
-        <aside className="w-full md:w-64 border-r">
+      <div className="flex flex-col md:flex-row" data-testid="app-content">
+        <aside className="w-full md:w-64 border-r" data-testid="app-sidebar">
           <FamilyMembersList
             selectedMemberId={selectedMemberId}
             onSelectMember={setSelectedMemberId}
           />
         </aside>
-        <main className="flex-1">
+        <main className="flex-1" data-testid="app-main">
           <ChoresList chores={filteredChores} />
         </main>
       </div>
