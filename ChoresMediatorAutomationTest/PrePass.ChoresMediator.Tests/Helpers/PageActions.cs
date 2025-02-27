@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Xml.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Playwright;
@@ -22,6 +23,7 @@ namespace PrePass.ChoresMediator.Tests.Helpers
         //----------------------------------------------------------------------------------------------------------------------------------------------------
         //                                                                     CHORES LOCATORS
         //----------------------------------------------------------------------------------------------------------------------------------------------------
-        public ILocator NavBarHome => _page.GetByRole(AriaRole.Link, new() { Name = "Home" });
+
+
     }
 }
