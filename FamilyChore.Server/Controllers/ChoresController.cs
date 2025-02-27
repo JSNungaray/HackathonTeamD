@@ -6,47 +6,48 @@ using FamilyChore.Server.Models;
 namespace FamilyChore.Server.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("[controller]/")]
 
     public class ChoresController : Controller
     {
 
-      
-        private readonly ManageChores   _manageChore;
-        public ChoresController(ManageChores manageChore)
+
+        private readonly IManageChores _manageChore;
+        public ChoresController(IManageChores manageChore)
         {
             _manageChore = manageChore;
         }
 
-        [HttpGet(Name = "GetChoreList")]
+        [HttpGet("GetChoreList")]
         public IActionResult GetChoreList(int id)
         {
             return new OkObjectResult(_manageChore.LoadChores());
         }
 
-        [HttpGet(Name = "GetChoreById")]
-        public IActionResult GetUserById(int id)
+        [HttpGet("GetChoreById")]
+        public IActionResult GetChoreById(int id)
         {
             return new OkObjectResult(_manageChore.GetChoreById(id));
         }
 
-        [HttpGet(Name = "GetChoreByName")]
-        public IActionResult GetUserByName(string choreName)
+        [HttpGet("GetChoreByName")]
+        public IActionResult GetChoreByName(string choreName)
         {
             return new OkObjectResult(_manageChore.GetChoreByName(choreName));
         }
 
-        [HttpPost(Name = "AddChore")]
+        [HttpPost("AddChore")]
         public IActionResult AddChore(Chore chore)
         {
             return new OkObjectResult(_manageChore.AddChore(chore));
         }
 
 
-        [HttpPut(Name = "DeleteChore")]
+        [HttpDelete("DeleteChore")]
         public IActionResult DeleteChoreById(int id)
         {
-            return new OkObjectResult(_manageChore.DeleteChoreById(id));
+            _manageChore.DeleteChoreById(id);
+            return new OkResult();
         }
 
 

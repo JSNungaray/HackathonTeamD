@@ -1,6 +1,6 @@
 @FamilyChore.Server_HostAddress = http://localhost:5200
 
-GET {{FamilyChore.Server_HostAddress}}/FamilyMediator/
+GET {{FamilyChore.Server_HostAddress}}/api/
 Accept: application/json
 
 ###

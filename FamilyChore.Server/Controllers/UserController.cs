@@ -9,8 +9,8 @@ namespace FamilyChore.Server.Controllers
         [Route("[controller]")]
     public class UserController : Controller
     {
-        private readonly ManageUser _manageUser;
-        public UserController(ManageUser manageUser)
+        private readonly IManageUser _manageUser;
+        public UserController(IManageUser manageUser)
         {
             _manageUser = manageUser;
         }

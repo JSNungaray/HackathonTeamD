@@ -9,8 +9,17 @@ using System.Threading.Tasks;
 
 namespace FamilyChore.Server.Manage
 {
+    public interface IManageChores
+    {
+        List<Chore> LoadChores();
+        Chore GetChoreById(int id);
+        Chore GetChoreByName(string choreName);
+        void DeleteChoreById(int id);
+        Chore AddChore(Chore newChore);
+        void UpdateChore(Chore updatedChore);
+    }
 
-    public class ManageChores
+    public class ManageChores :IManageChores
     {
         private readonly JSONService _jsonService;
         private readonly IUtilities _utils;
@@ -44,11 +53,11 @@ namespace FamilyChore.Server.Manage
 
         public Chore AddChore(Chore newChore)
         {
-            int id = _utils.MaxId<Chore>(filePath);
+            int id = _utils.MaxId<Chore>(filePath, 0);
 
             if (newChore.Tasks != null && newChore.Tasks.Length > 0)
             {
-                int taskId = _utils.MaxId<ChoreTasks>(filePath);
+                int taskId = _utils.MaxId<ChoreTasks>(filePath, id);
 
                 for (int i = 0; i < newChore.Tasks.Length; i++)
                 {

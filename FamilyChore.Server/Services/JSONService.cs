@@ -3,22 +3,46 @@ using System.Collections.Generic;
 using FamilyChore.Server.Models;
 using FamilyChore.Server.Data;
 using FamilyChore.Server.Services;
+using System.Text.Json.Serialization;
 
 namespace FamilyChore.Server.Services
 {
     public class JSONService
     {
+        //public interface IJSONService
+        //{
+        //    List<User> LoadUsers();
+        //    User GetUserById(int id);
+        //    User GetUserByName(string username);
+        //    void AddUser(User user);
+        //    void UpdateUser(User updatedUser);
+        //    void DeleteUser(int userId);
+        //    List<Chore> LoadChores();
+        //    Chore GetChoreById(int id);
+        //    Chore GetChoreByName(string choreName);
+        //    void SaveUsers(List<User> users);
+        //    void SaveChores(List<Chore> chores);
+        //    Chore AddChore(Chore chore);
+        //    void UpdateChore(Chore updatedChore);
+        //    void DeleteChore(int choreId);
+        //}
 
 
-        public JSONService()
-        { }
-
-
-        private readonly string userPath = "Data/Users.json";    
+        private readonly string userPath = "Data/Users.json";
         private readonly string chorePath = "Data/Chores.json";
         private readonly string choreStatusPath = "Data/ChoreStatus.json";
         private readonly string choreAssignmentPath = "Data/ChoreAssignment.json";
+        private readonly JsonSerializerOptions _jsonOptions;
 
+
+        public JSONService()
+        {
+            _jsonOptions = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Converters = { new JsonStringEnumConverter() }
+            };
+        }
 
         public void SaveUsers( List<User> users)
         {
@@ -79,7 +103,7 @@ namespace FamilyChore.Server.Services
         public Chore GetChoreById(int id)
         {
             var chores = LoadChores();
-            return chores.FirstOrDefault(c => c.Id == id);
+            return chores.FirstOrDefault(c => c.ID == id);
         }
 
         public Chore GetChoreByName(string choreName)
@@ -91,7 +115,7 @@ namespace FamilyChore.Server.Services
 
         public void SaveChores(List<Chore> chores)
         {
-            var jsonString = JsonSerializer.Serialize(chores, new JsonSerializerOptions { WriteIndented = true });
+            var jsonString = JsonSerializer.Serialize(chores);
             File.WriteAllText(chorePath, jsonString);
         }
 
@@ -99,20 +123,21 @@ namespace FamilyChore.Server.Services
         /// TODO: Verify Tasks are handled correctly
         /// </summary>
         /// <param name="chore"></param>
-        public void AddChore(Chore chore)
+        public Chore AddChore(Chore chore)
         {
             var chores = LoadChores();
+            
             chores.Add(chore);
             SaveChores( chores);
             Chore newChore = chores.Last();  //VALIDATE THIS
-            return newChore
+            return newChore;
 
         }
 
         public void UpdateChore(Chore updatedChore)
         {
             var chores = LoadChores();
-            var chore = chores.ToList().Find(c => c.Id == updatedChore.Id);
+            var chore = chores.ToList().Find(c => c.ID == updatedChore.ID);
             if (chore != null)
             {
                 chore.ChoreName = updatedChore.ChoreName;
@@ -125,7 +150,7 @@ namespace FamilyChore.Server.Services
                     {
                         choreTask.TaskName = task.TaskName;
                         choreTask.TaskDescription = task.TaskDescription;
-                        choreTask.UserType = task.UserType;
+                       
                     }
                     else
                     {
@@ -142,7 +167,7 @@ namespace FamilyChore.Server.Services
         public void DeleteChore(int choreId)
         {
             var chores = LoadChores();
-            chores.RemoveAll(c => c.Id == choreId);
+            chores.RemoveAll(c => c.ID == choreId);            
             SaveChores(chores);
         }
        

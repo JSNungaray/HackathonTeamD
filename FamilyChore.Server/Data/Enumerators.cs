@@ -15,7 +15,7 @@ namespace FamilyChore.Server.Data
         }
         public enum Frequency
         {
-            Daily,
+            Daily = 1,
             Weekly,
             Monthly,
             Quarterly,

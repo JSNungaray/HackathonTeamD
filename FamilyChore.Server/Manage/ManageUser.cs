@@ -7,7 +7,17 @@ using System.Runtime.CompilerServices;
 
 namespace FamilyChore.Server.Manage
 {
-    public class ManageUser(JSONService jsonService, IUtilities utils)
+    public interface IManageUser
+    {
+        List<User> LoadUsers();
+        User GetUserById(int id);
+        User GetUserByName(string name);
+        User AddUser(User newUser);
+        void UpdateUser(User updatedUser);
+        void DeleteUser(int id);
+    }   
+
+    public class ManageUser(JSONService jsonService, IUtilities utils) : IManageUser
     {
         private readonly JSONService _jsonService = jsonService;
         private readonly IUtilities _utils = utils;
@@ -27,7 +37,7 @@ namespace FamilyChore.Server.Manage
         }
         public User AddUser(User newUser)
         {
-            int id = _utils.MaxId<User>(filePath);
+            int id = _utils.MaxId<User>(filePath, 0);
 
             _jsonService.AddUser( new User
             {
@@ -41,11 +51,11 @@ namespace FamilyChore.Server.Manage
         }
         public void UpdateUser(User updatedUser)
         {
-            _jsonService.UpdateUser(filePath, updatedUser);
+            _jsonService.UpdateUser(updatedUser);
         }
         public void DeleteUser(int id)
         {
-            _jsonService.DeleteUser(filePath, id);
+            _jsonService.DeleteUser(id);
         }
 
     }
