@@ -2,186 +2,185 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Chore } from "@/components/Chore"
+import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { User } from "@/App"
+import { ChoreWithDetails, User, ChoreTask } from "@/models/types"
 import { fetchUsers } from "@/lib/utils"
 
 interface ChoreEditFormProps {
-  editedChore: Chore
+  editedChore: ChoreWithDetails
   onSubmit: (e: React.FormEvent) => Promise<void>
   onCancel: () => void
-  onChange: (updatedChore: Chore) => void
+  onChange: (updatedChore: ChoreWithDetails) => void
 }
 
-interface ValidationErrors {
-  name?: string
-  description?: string
-  dueDate?: string
-}
+type ExtendedChoreFields = keyof ChoreWithDetails | 'taskDescription'
 
 export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: ChoreEditFormProps) {
-  const [errors, setErrors] = useState<ValidationErrors>({})
-  const [touched, setTouched] = useState<Record<string, boolean>>({})
-  const [userList, setUserList] = useState<User[]>([])
+  const [users, setUsers] = useState<User[]>([])
+
+  const loadUsers = async () => {
+    try {
+      const fetchedUsers = await fetchUsers()
+      setUsers(fetchedUsers)
+    } catch (error) {
+      console.error('Failed to fetch users:', error)
+    }
+  }
 
   useEffect(() => {
-    fetchUsers().then(u => setUserList(u));
-  }, []);
+    loadUsers()
+  }, [])
 
-  const validateField = (name: string, value: string) => {
-    switch (name) {
-      case 'name':
-        return !value.trim() ? 'Name is required' :
-          value.length < 3 ? 'Name must be at least 3 characters' :
-            undefined
-      case 'description':
-        return !value.trim() ? 'Description is required' : undefined
-      case 'dueDate':
-        return !value ? 'Due date is required' :
-          new Date(value) < new Date(new Date().toDateString()) ? 'Due date cannot be in the past' :
-            undefined
-      default:
-        return undefined
+  // Set today's date as default if no date is provided
+  useEffect(() => {
+    if (!editedChore.dueDate) {
+      const today = new Date().toISOString().split('T')[0]
+      handleChange('dueDate', today)
     }
-  }
+  }, [])
 
-  const handleBlur = (field: string) => {
-    setTouched(prev => ({ ...prev, [field]: true }))
-    const error = validateField(field, editedChore[field as keyof Chore] as string)
-    setErrors(prev => ({ ...prev, [field]: error }))
-  }
-
-  const handleChange = (field: keyof Chore, value: string) => {
-    const updatedChore = { ...editedChore, [field]: value }
-    onChange(updatedChore)
-
-    if (touched[field]) {
-      const error = validateField(field, value)
-      setErrors(prev => ({ ...prev, [field]: error }))
-    }
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    // Validate all fields
-    const newErrors: ValidationErrors = {}
-    let hasErrors = false;
-
-    (['name', 'description', 'dueDate'] as const).forEach(field => {
-      const error = validateField(field, editedChore[field] as string)
-      if (error) {
-        newErrors[field] = error
-        hasErrors = true
+  // Initialize with a default task if none exists
+  useEffect(() => {
+    if (!editedChore.tasks || editedChore.tasks.length === 0) {
+      const defaultTask: ChoreTask = {
+        id: 0,
+        choreId: editedChore.id || 0,
+        taskName: editedChore.choreName || 'Default Task',
+        taskDescription: ''
       }
-    })
-
-    setErrors(newErrors)
-    setTouched({ name: true, description: true, dueDate: true })
-
-    if (!hasErrors) {
-      await onSubmit(e)
+      handleChange('tasks', [defaultTask])
     }
+  }, [])
+
+  const handleChange = async (field: ExtendedChoreFields, value: any) => {
+    if (field === 'assignedTo') {
+      if (users.length === 0) {
+        console.log('no users');
+        await loadUsers()
+      }
+      console.log('assignedTo', value)
+      const selectedUser = users.find(user => user.id.toString() == value.toString())
+      console.log('user', selectedUser)
+      const updatedChore = { ...editedChore, assignedTo: selectedUser }
+      onChange(updatedChore)
+    } else if (field === 'taskDescription') {
+      // Update the first task's description
+      const updatedTasks = editedChore.tasks.length > 0
+        ? [
+            { 
+              ...editedChore.tasks[0], 
+              taskDescription: value,
+              taskName: editedChore.choreName // Keep task name in sync with chore name
+            },
+            ...editedChore.tasks.slice(1)
+          ]
+        : [{
+            id: 0,
+            choreId: editedChore.id || 0,
+            taskName: editedChore.choreName,
+            taskDescription: value
+          }]
+      const updatedChore = { ...editedChore, tasks: updatedTasks }
+      onChange(updatedChore)
+    } else if (field === 'choreName') {
+      // When choreName changes, update both the name and the first task's name
+      const updatedTasks = editedChore.tasks.length > 0
+        ? [
+            { ...editedChore.tasks[0], taskName: value },
+            ...editedChore.tasks.slice(1)
+          ]
+        : [{
+            id: 0,
+            choreId: editedChore.id || 0,
+            taskName: value,
+            taskDescription: ''
+          }]
+      const updatedChore = { ...editedChore, [field]: value, tasks: updatedTasks }
+      onChange(updatedChore)
+    } else {
+      const updatedChore = { ...editedChore, [field]: value }
+      onChange(updatedChore)
+    }
+  }
+
+  const getMinDate = () => {
+    const yesterday = new Date()
+    yesterday.setDate(yesterday.getDate() - 1)
+    return yesterday.toISOString().split('T')[0]
+  }
+
+  const getTodayDate = () => {
+    return new Date().toISOString().split('T')[0]
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded-lg" data-testid="chore-edit-form">
+    <form onSubmit={onSubmit} className="space-y-4 p-4 rounded-lg" data-testid="chore-edit-form">
       <div className="space-y-2" data-testid="chore-edit-name-container">
-        <Label htmlFor="name" className="flex justify-between" data-testid="chore-edit-name-label">
+        <Label htmlFor="choreName" data-testid="chore-edit-name-label">
           <span data-testid="chore-edit-name-label-text">Name</span>
-          {touched.name && errors.name && (
-            <span className="text-sm text-destructive" data-testid="chore-edit-name-error">{errors.name}</span>
-          )}
         </Label>
         <Input
-          id="name"
-          value={editedChore.name}
-          onChange={(e) => handleChange('name', e.target.value)}
-          onBlur={() => handleBlur('name')}
-          className={errors.name ? 'border-destructive' : ''}
+          id="choreName"
+          value={editedChore.choreName}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange('choreName', e.target.value)}
           data-testid="chore-edit-name-input"
         />
       </div>
 
-      <div className="space-y-2" data-testid="chore-edit-description-container">
-        <Label htmlFor="description" className="flex justify-between" data-testid="chore-edit-description-label">
-          <span data-testid="chore-edit-description-label-text">Description</span>
-          {touched.description && errors.description && (
-            <span className="text-sm text-destructive" data-testid="chore-edit-description-error">{errors.description}</span>
-          )}
+      <div className="space-y-2" data-testid="chore-edit-details-container">
+        <Label htmlFor="taskDescription" data-testid="chore-edit-details-label">
+          <span data-testid="chore-edit-details-label-text">Details</span>
         </Label>
-        <Input
-          id="description"
-          value={editedChore.description}
-          onChange={(e) => handleChange('description', e.target.value)}
-          onBlur={() => handleBlur('description')}
-          className={errors.description ? 'border-destructive' : ''}
-          data-testid="chore-edit-description-input"
+        <Textarea
+          id="taskDescription"
+          value={editedChore.tasks?.[0]?.taskDescription || ''}
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleChange('taskDescription', e.target.value)}
+          placeholder="Enter chore details..."
+          className="min-h-[100px]"
+          data-testid="chore-edit-details-input"
         />
       </div>
 
-      <div className="space-y-2" data-testid="chore-edit-assignedTo-container">
-        <Label htmlFor="assignedTo" data-testid="chore-edit-assignedTo-label">
-          <span data-testid="chore-edit-assignedTo-label-text">Assigned To</span>
+      <div className="space-y-2" data-testid="chore-edit-assignedto-container">
+        <Label htmlFor="assignedTo" data-testid="chore-edit-assignedto-label">
+          <span data-testid="chore-edit-assignedto-label-text">Assigned To</span>
         </Label>
-
-        <Select
-          data-testid={`chore-edit-choreAssignedTo`}
-          value={editedChore.assignedTo.toString()}
+        <Select 
+          value={editedChore.assignedTo?.id || ''} 
           onValueChange={(value) => handleChange('assignedTo', value)}
+          data-testid="chore-edit-assignedto-select"
         >
-          <SelectTrigger data-testid={"chore-edit-assignedTo-button"}>
-            <SelectValue placeholder="Select a user..." />
+          <SelectTrigger id="assignedTo" data-testid="chore-edit-assignedto-trigger">
+            <SelectValue placeholder="Select user" data-testid="chore-edit-assignedto-value" />
           </SelectTrigger>
-          <SelectContent>
-            {userList.map((user) => (
-              <SelectItem key={user.id} value={user.id.toString()} data-testid={`chore-edit-choreAssignedTo-${user.id}`}>
+          <SelectContent data-testid="chore-edit-assignedto-content">
+            {users.map(user => (
+              <SelectItem 
+                key={user.id} 
+                value={user.id} 
+                data-testid={`chore-edit-assignedto-option-${user.id}`}
+              >
                 {user.userName}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
-
-      <div className="space-y-2" data-testid="chore-edit-dueDate-container">
-        <Label htmlFor="dueDate" className="flex justify-between" data-testid="chore-edit-dueDate-label">
-          <span data-testid="chore-edit-dueDate-label-text">Due Date</span>
-          {touched.dueDate && errors.dueDate && (
-            <span className="text-sm text-destructive" data-testid="chore-edit-dueDate-error">{errors.dueDate}</span>
-          )}
+{/* 
+      <div className="space-y-2" data-testid="chore-edit-date-container">
+        <Label htmlFor="dueDate" data-testid="chore-edit-date-label">
+          <span data-testid="chore-edit-date-label-text">Due Date</span>
         </Label>
         <Input
-          id="dueDate"
           type="date"
-          min={new Date().toISOString().split('T')[0]}
-          value={editedChore.dueDate.split('T')[0]}
-          onChange={(e) => handleChange('dueDate', e.target.value)}
-          onBlur={() => handleBlur('dueDate')}
-          className={errors.dueDate ? 'border-destructive' : ''}
-          data-testid="chore-edit-dueDate-input"
+          id="dueDate"
+          value={editedChore.dueDate?.split('T')[0] || getTodayDate()}
+          min={getMinDate()}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange('dueDate', e.target.value)}
+          data-testid="chore-edit-date-input"
         />
-      </div>
-
-      <div className="space-y-2" data-testid="chore-edit-status-container">
-        <Label htmlFor="status" data-testid="chore-edit-status-label">
-          <span data-testid="chore-edit-status-label-text">Status</span>
-        </Label>
-        <Select 
-          value={editedChore.status} 
-          onValueChange={(value) => handleChange('status', value)}
-          data-testid="chore-edit-status-select"
-        >
-          <SelectTrigger id="status" data-testid="chore-edit-status-trigger">
-            <SelectValue placeholder="Select status" data-testid="chore-edit-status-value" />
-          </SelectTrigger>
-          <SelectContent data-testid="chore-edit-status-content">
-            <SelectItem value="not started" data-testid="chore-edit-status-option-not-started">Not Started</SelectItem>
-            <SelectItem value="pending" data-testid="chore-edit-status-option-pending">Pending</SelectItem>
-            <SelectItem value="completed" data-testid="chore-edit-status-option-completed">Completed</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      </div> */}
 
       <div className="flex gap-2" data-testid="chore-edit-buttons-container">
         <Button type="submit" data-testid="chore-edit-save-button">Save Changes</Button>
