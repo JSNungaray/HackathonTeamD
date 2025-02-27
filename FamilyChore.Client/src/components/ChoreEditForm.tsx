@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -18,9 +18,27 @@ interface ValidationErrors {
   dueDate?: string
 }
 
+interface User {
+  id: string
+  name: string
+  avatarUrl: string
+}
+
 export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: ChoreEditFormProps) {
   const [errors, setErrors] = useState<ValidationErrors>({})
   const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [userList, setUserList] = useState<User[]>([])
+
+  // get users from api for the user select dropdown
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/users`)
+      .then(response => response.json())
+      .then(data => setUserList(data.map((user: User) => ({ id: user.id, name: user.name, avatarUrl: user.avatarUrl }))))
+      .catch(error => { console.error('Error fetching users:', error);
+      setUserList([{id: '1', name: 'John Doe', avatarUrl: 'https://via.placeholder.com/150'}])
+      })
+  })
+// )
 
   const validateField = (name: string, value: string) => {
     switch (name) {
@@ -118,12 +136,23 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
         <Label htmlFor="assignedTo" data-testid="chore-edit-assignedTo-label">
           <span data-testid="chore-edit-assignedTo-label-text">Assigned To</span>
         </Label>
-        <Input
-          id="assignedTo"
+
+        <Select
+          data-testid={`chore-edit-choreAssignedTo`}
           value={editedChore.assignedTo}
-          onChange={(e) => handleChange('assignedTo', e.target.value)}
-          data-testid="chore-edit-assignedTo-input"
-        />
+          onValueChange={(value) => handleChange('assignedTo', value)}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select a user..." />
+          </SelectTrigger>
+          <SelectContent>
+            {userList.map((user) => (
+              <SelectItem key={user.id} value={user.id} data-testid={`chore-edit-choreAssignedTo-${user.id}`}>
+                {user.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="space-y-2" data-testid="chore-edit-dueDate-container">
