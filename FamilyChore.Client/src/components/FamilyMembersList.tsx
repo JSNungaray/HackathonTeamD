@@ -27,7 +27,7 @@ export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMe
         <h2 className="text-lg font-semibold" data-testid="family-members-heading">Family Members</h2>
         <AddFamilyMemberDialog />
       </div>
-      <div className="flex gap-2 mb-4" data-testid="family-members-filters">
+      <div className="flex gap-2 mb-4 dark:text-black" data-testid="family-members-filters">
         <Button
           data-testid="filter-all"
           variant={selectedMemberId === "all" ? "default" : "outline"}
