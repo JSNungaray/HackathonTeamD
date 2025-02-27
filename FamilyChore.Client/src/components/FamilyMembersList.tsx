@@ -1,5 +1,6 @@
 import { FamilyMemberCard } from "./FamilyMemberCard"
 import { Button } from "@/components/ui/button"
+import { PlusIcon } from "@radix-ui/react-icons"
 
 // Temporary mock data - this would typically come from an API
 const mockFamilyMembers = [
@@ -17,7 +18,17 @@ interface FamilyMembersListProps {
 export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMembersListProps) {
   return (
     <div className="p-4" data-testid="family-members-list">
-      <h2 className="text-lg font-semibold mb-4" data-testid="family-members-heading">Family Members</h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-semibold" data-testid="family-members-heading">Family Members</h2>
+        <Button 
+          variant="ghost" 
+          size="icon"
+          data-testid="add-family-member-button"
+        >
+          <PlusIcon className="h-5 w-5" />
+          <span className="sr-only">Add Family Member</span>
+        </Button>
+      </div>
       <div className="flex gap-2 mb-4" data-testid="family-members-filters">
         <Button
           data-testid="filter-all"
