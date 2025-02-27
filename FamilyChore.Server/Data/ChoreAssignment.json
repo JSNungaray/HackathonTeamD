@@ -9,15 +9,6 @@
     "Reward": "Extra dessert"
   },
   {
-    "ID": 2,
-    "ChoreId": 2,
-    "UserId": 2,
-    "AssignmentDate": "2025-02-02",
-    "ChoreStatus": "InProgress",
-    "Consequence": "No video games for a day",
-    "Reward": "Extra playtime"
-  },
-  {
     "ID": 3,
     "ChoreId": 1,
     "UserId": 2,
@@ -25,5 +16,14 @@
     "ChoreStatus": "Completed",
     "Consequence": "None",
     "Reward": "Movie night"
+  },
+  {
+    "ID": 4,
+    "ChoreId": 1,
+    "UserId": 3,
+    "AssignmentDate": "2025-02-01",
+    "ChoreStatus": "NotStarted",
+    "Consequence": "No TV for a week",
+    "Reward": "Extra dessert"
   }
 ]

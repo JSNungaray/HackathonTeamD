@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Workspaces\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj": {}
+    "C:\\Users\\Carla.Tillman\\source\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj": {}
   },
   "projects": {
-    "C:\\Workspaces\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj": {
+    "C:\\Users\\Carla.Tillman\\source\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspaces\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj",
+        "projectUniqueName": "C:\\Users\\Carla.Tillman\\source\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj",
         "projectName": "FamilyChore.Server",
-        "projectPath": "C:\\Workspaces\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj",
-        "packagesPath": "C:\\Users\\Jonathan.Nungaray\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspaces\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\obj\\",
+        "projectPath": "C:\\Users\\Carla.Tillman\\source\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\FamilyChore.Server.csproj",
+        "packagesPath": "C:\\Users\\Carla.Tillman\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Carla.Tillman\\source\\Hackathon2025\\HackathonTeamD\\FamilyChore.Server\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Jonathan.Nungaray\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Carla.Tillman\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +27,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,7 +39,13 @@
           "warnAsError": [
             "NU1605"
           ]
-        }
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -73,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.103/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

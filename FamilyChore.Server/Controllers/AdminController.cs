@@ -57,6 +57,11 @@ namespace FamilyChore.Server.Controllers
             return new OkObjectResult(assignmentList);
         }
 
-
+        [HttpGet("GenerateReport")]
+        public IActionResult GenerateReport()
+        {
+            var report = _manageAdmin.GenerateReport();
+            return new OkObjectResult(report);
+        }
     }
 }

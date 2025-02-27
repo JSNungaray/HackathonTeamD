@@ -10,12 +10,13 @@ namespace FamilyChore.Server.Manage
         ChoreAssignment GetAssignmentById(int id);
         List<ChoreAssignment> GetAssignmentsByUserId(int id);
         void DeleteAssignment(int id);
-     ChoreAssignment AddAssignment(ChoreAssignment newAssignment);
+        ChoreAssignment AddAssignment(ChoreAssignment newAssignment);
         void UpdateAssignment(ChoreAssignment updatedAssignment);
-        // ChoreAssignment SaveAssignment(ChoreAssignment choreAssignment);
-        //ChoreAssignment AddAssignment(ChoreAssignment newAssignment);
+        object GenerateReport();
     }
-    public class ManageAdmin :IManageAdmin
+                  // ChoreAssignment SaveAssignment(ChoreAssignment choreAssignment);
+            //ChoreAssignment AddAssignment(ChoreAssignment newAssignment);
+           public class ManageAdmin :IManageAdmin
     {
         private readonly JSONService _jsonService;
         private readonly string filePath = "Data/ChoreAssignment.json";
@@ -46,9 +47,11 @@ namespace FamilyChore.Server.Manage
         public void UpdateAssignment(ChoreAssignment updatedAssignment) {
              _jsonService.UpdateAssignment(updatedAssignment);
         }
-         
 
-      
+
+        public object GenerateReport() {
+            return _jsonService.GenerateChoreAssignmentReport();
+        }
 
         #endregion
 

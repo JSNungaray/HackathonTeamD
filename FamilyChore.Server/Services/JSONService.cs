@@ -217,6 +217,23 @@ namespace FamilyChore.Server.Services
 
         #endregion
 
+        public string GenerateChoreAssignmentReport()
+        {
+            var assignments = LoadAssignments();
+            var report = assignments.Select(a => new
+            {
+                a.ID,
+                a.ChoreId,
+                a.UserId,
+                AssignmentDate = a.AssignmentDate?.ToString("yyyy-MM-dd"),
+                a.ChoreStatus,
+                a.Consequence,
+                a.Reward
+            }).ToList();
+
+            return JsonSerializer.Serialize(report, _jsonOptions);
+        }
+
     }
 }
 
