@@ -19,7 +19,7 @@ namespace FamilyChore.Server.Controllers
         }
 
         [HttpGet("GetChoreList")]
-        public IActionResult GetChoreList(int id)
+        public IActionResult GetChoreList()
         {
             return new OkObjectResult(_manageChore.LoadChores());
         }

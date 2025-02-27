@@ -9,7 +9,8 @@ export interface Chore {
   id?: number
   choreName: string
   frequency?: number,
-  ChoreAssignment: ChoreAssignment
+  ChoreAssignment?: ChoreAssignment,
+  Tasks?: Task[]
 }
 
 export interface ChoreAssignment {
@@ -21,6 +22,13 @@ export interface ChoreAssignment {
   consequence: string,
   reward: string,
   user: User
+}
+
+export interface Task {
+  id?: number
+  choreId: number
+  taskName: string
+  taskDescription: string
 }
 
 interface ChoreProps {

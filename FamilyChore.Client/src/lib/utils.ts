@@ -34,9 +34,7 @@ export const fetchChores = async (): Promise<Chore[]> => {
   })));
   
   return chores.map((chore: any) => ({
-    id: chore.id,
-    choreName: chore.choreName,
-    frequency: chore.frequency,
+    ...chore,
     ChoreAssignment: assignments.find((assignment: any) => assignment.choreId === chore.id)
   }));
 }

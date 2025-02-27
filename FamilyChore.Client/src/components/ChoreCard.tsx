@@ -1,24 +1,18 @@
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardFooter } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Modal } from "@/components/ui/modal"
 import ChoreComponent from "@/components/Chore"
+import { Chore } from "@/components/Chore"
 
 interface ChoreProps {
-  title: string
-  description: string
-  dueDate: string
-  status: 'not started' | 'pending' | 'completed'
-  assignedTo?: {
-    name: string
-    avatarUrl?: string
-  }
+  chore: Chore
 }
 
-export function ChoreCard({ title, description, dueDate, status, assignedTo }: ChoreProps) {
+export function ChoreCard({ chore }: ChoreProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const titleSlug = title.toLowerCase().replace(/\s+/g, '-')
+  const titleSlug = chore.choreName.toLowerCase().replace(/\s+/g, '-')
 
   return (
     <>
@@ -27,34 +21,32 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
       >
         <CardHeader className="pb-2" data-testid={`chore-header-${titleSlug}`}>
           <div className="flex justify-center items-center" data-testid={`chore-title-container-${titleSlug}`}>
-            <h3 className="font-semibold text-lg text-center" data-testid={`chore-title-${titleSlug}`}>{title}</h3>
+            <h3 className="font-semibold text-lg text-center" data-testid={`chore-title-${titleSlug}`}>{chore.choreName}</h3>
           </div>
         </CardHeader>
         <CardContent className="flex-grow" data-testid={`chore-content-${titleSlug}`}>
-          <p className="text-sm text-muted-foreground mb-4" data-testid={`chore-description-${titleSlug}`}>{description}</p>
           <p className="text-sm font-medium" data-testid={`chore-due-date-${titleSlug}`}>
             <span data-testid={`chore-due-date-label-${titleSlug}`}>Due: </span>
-            <span data-testid={`chore-due-date-value-${titleSlug}`}>{dueDate}</span>
+            <span data-testid={`chore-due-date-value-${titleSlug}`}>{chore.ChoreAssignment?.assignedDate}</span>
           </p>
         </CardContent>
         <CardFooter className="flex justify-between mt-auto" data-testid={`chore-footer-${titleSlug}`}>
-          {assignedTo ? (
+          {chore.ChoreAssignment?.user ? (
             <div className="flex items-center gap-2" data-testid={`chore-assigned-to-${titleSlug}`}>
               <Avatar className="h-6 w-6" data-testid={`chore-avatar-${titleSlug}`}>
-                <AvatarImage src={assignedTo.avatarUrl} alt={assignedTo.name} data-testid={`chore-avatar-image-${titleSlug}`} />
-                <AvatarFallback data-testid={`chore-avatar-fallback-${titleSlug}`}>{assignedTo.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+                <AvatarFallback data-testid={`chore-avatar-fallback-${titleSlug}`}>{chore.ChoreAssignment.user.userName.slice(0, 2).toUpperCase()}</AvatarFallback>
               </Avatar>
-              <span className="text-sm text-muted-foreground" data-testid={`chore-assigned-name-${titleSlug}`}>{assignedTo.name}</span>
+              <span className="text-sm text-muted-foreground" data-testid={`chore-assigned-name-${titleSlug}`}>{chore.ChoreAssignment.user.userName}</span>
             </div>
           ) : (
             <span className="text-sm text-muted-foreground" data-testid={`chore-unassigned-${titleSlug}`}>Unassigned</span>
           )}
-          {status !== 'not started' && (
+          {chore.ChoreAssignment?.choreStatus !== 1 && (
             <Badge
-              variant={status === 'completed' ? 'success' : 'secondary'}
+              variant={chore.ChoreAssignment?.choreStatus === 3 ? 'success' : 'secondary'}
               data-testid={`chore-status-${titleSlug}`}
             >
-              {status}
+              {chore.ChoreAssignment?.choreStatus == 1 ? 'not started' : chore.ChoreAssignment?.choreStatus == 2 ? 'pending' : 'completed'}
             </Badge>
           )}
         </CardFooter>
@@ -65,9 +57,7 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
         onClose={() => setIsModalOpen(false)}
         data-testid={`chore-modal-${titleSlug}`}
       >
-        <ChoreComponent chore={{ id: 0, name: title, description: description, dueDate: dueDate, status: status, assignedTo: assignedTo ? assignedTo.name : ''}}
-          avatarUrl={assignedTo ? assignedTo.avatarUrl : ''}
-        />
+        <ChoreComponent chore={chore} />
       </Modal>
     </>
   )

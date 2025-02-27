@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { FamilyMembersList } from './components/FamilyMembersList'
 import { ChoresList } from './components/ChoresList'
+import { Chore } from '@/components/Chore'
 
 export interface User {
   id: string
@@ -13,10 +14,10 @@ function App() {
   const [chores, setChores] = useState<Chore[]>([]);
 
   const filteredChores = selectedMemberId === "all"
-    ? mockChores
-    : mockChores.filter(chore => 
-        chore.assignedTo?.id === selectedMemberId || 
-        (!chore.assignedTo && selectedMemberId === "unassigned")
+    ? chores
+    : chores.filter(chore => 
+        chore.ChoreAssignment?.userId.toString() === selectedMemberId || 
+        (!chore.ChoreAssignment?.userId && selectedMemberId === "unassigned")
       )
 
   return (

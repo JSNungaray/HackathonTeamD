@@ -4,22 +4,7 @@ import { Button } from "@/components/ui/button"
 import { PlusIcon } from "@radix-ui/react-icons"
 import { Modal } from "@/components/ui/modal"
 import { ChoreEditForm } from "@/components/ChoreEditForm"
-import { Chore as ChoreFormModel } from "@/components/Chore"
-
-interface FamilyMember {
-  id: string
-  name: string
-  avatarUrl: string
-}
-
-interface Chore {
-  id: string
-  title: string
-  description: string
-  dueDate: string
-  status: 'not started' | 'pending' | 'completed'
-  assignedTo?: FamilyMember
-}
+import { Chore } from "@/components/Chore"
 
 interface ChoresListProps {
   chores: Chore[]
@@ -27,13 +12,23 @@ interface ChoresListProps {
 
 export function ChoresList({ chores }: ChoresListProps) {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [newChore, setNewChore] = useState<ChoreFormModel>({
+  const [newChore, setNewChore] = useState<Chore>({
     id: 0,
-    name: '',
-    description: '',
-    dueDate: '',
-    status: 'pending',
-    assignedTo: '-1'
+    choreName: '',
+    frequency: 0,
+    ChoreAssignment: {
+      choreId: 0,
+      userId: 0,
+      assignedDate: new Date().toISOString(),
+      choreStatus: 0,
+      consequence: '',
+      reward: '',
+      user: {
+        id: '',
+        userName: '',
+        userType: ''
+      }
+    }
   })
   return (
     <>
@@ -53,11 +48,15 @@ export function ChoresList({ chores }: ChoresListProps) {
           {chores.map((chore) => (
             <ChoreCard
               key={chore.id}
-              title={chore.title}
-              description={chore.description}
-              dueDate={chore.dueDate}
-              status={chore.status}
-              assignedTo={chore.assignedTo}
+              title={chore.choreName}
+              description={chore.ChoreAssignment?.consequence || ''}
+              dueDate={chore.ChoreAssignment?.assignedDate || ''}
+              status={chore.ChoreAssignment?.choreStatus === 2 ? 'completed' : 
+                     chore.ChoreAssignment?.choreStatus === 1 ? 'pending' : 'not started'}
+              assignedTo={chore.ChoreAssignment?.user ? {
+                name: chore.ChoreAssignment.user.userName,
+                avatarUrl: ''
+              } : undefined}
             />
           ))}
         </div>
