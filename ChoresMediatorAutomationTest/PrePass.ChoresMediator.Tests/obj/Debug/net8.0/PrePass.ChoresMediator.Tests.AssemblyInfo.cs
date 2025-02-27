@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrePass.ChoresMediator.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2fc95592d4701303c405ffddb513fc5cbc7bd2b1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+577cb49bd547b268f570c07c6800165368030117")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrePass.ChoresMediator.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrePass.ChoresMediator.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

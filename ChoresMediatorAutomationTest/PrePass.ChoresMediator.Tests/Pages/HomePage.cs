@@ -21,8 +21,23 @@ namespace PrePass.ChoresMediator.Tests.Pages
             _page = page;
         }
 
-        //Container
-        public ILocator SearchContainerPlateLbl => _page.GetByText("Plate", new() { Exact = true });
+        //----------------------------------------------------------------------------------------------------------------------------------------------------
+        //                                                                     CHORES HOMEPAGE LOCATORS
+        //----------------------------------------------------------------------------------------------------------------------------------------------------
+        public ILocator BtnAddFamilyMember => _page.GetByTestId("add-family-member-button");
+        public ILocator LblAddFamilyMember => _page.Locator("[data - slot = 'dialog-title']");
+        public ILocator LblAddFamilyMemberDesc => _page.Locator("[data - slot = 'dialog-description']");
+        public ILocator LblAddFamilyMemberName => _page.GetByLabel("Name");
+        public ILocator LblAddFamilyMemberRole => _page.GetByLabel("Role");
+        public ILocator TxtAddFamilyMemberName => _page.GetByTestId("family-member-name-input");
+        public ILocator TxtAddFamilyMemberRole => _page.GetByTestId("family-member-role-input");
+        public ILocator BtnAddMember => _page.GetByTestId("add-family-member-button");
+        public ILocator BtnCancel => _page.GetByTestId("add-family-member-button");
+
+        //All Button
+        public ILocator BtnAll => _page.GetByTestId("filter-all");
+        //Unassigned Button
+        public ILocator BtnUnassigned => _page.GetByTestId("filter-unassigned");
 
     }
 }
