@@ -11,6 +11,7 @@ builder.Services.AddScoped<JSONService>();
 builder.Services.AddScoped<IUtilities, Utilities>();
 builder.Services.AddScoped<IManageUser, ManageUser>();
 builder.Services.AddScoped<IManageChores, ManageChores>();
+builder.Services.AddScoped<IManageAdmin, ManageAdmin>();
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
