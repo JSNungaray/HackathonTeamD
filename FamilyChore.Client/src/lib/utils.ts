@@ -22,8 +22,23 @@ const sendRequest = async (method: string, uri: string, data?: any) => {
 
 // chore api functions
 export const fetchChores = async (): Promise<Chore[]> => {
-  const response = await sendRequest('GET', 'Chores/GetChoreList');
-  return response.json();
+  const choresResponse = await sendRequest('GET', 'Chores/GetChoreList');
+  const assignmentsResponse = await sendRequest('GET', 'Admin/LoadAssignmentList');
+  
+  const chores = await choresResponse.json();
+  const assignmentsList = await assignmentsResponse.json();
+
+  const assignments = await Promise.all(assignmentsList.map(async (assignment: any) => ({
+    ...assignment,
+    user: await GetUserById(assignment.userId)
+  })));
+  
+  return chores.map((chore: any) => ({
+    id: chore.id,
+    choreName: chore.choreName,
+    frequency: chore.frequency,
+    ChoreAssignment: assignments.find((assignment: any) => assignment.choreId === chore.id)
+  }));
 }
 
 
