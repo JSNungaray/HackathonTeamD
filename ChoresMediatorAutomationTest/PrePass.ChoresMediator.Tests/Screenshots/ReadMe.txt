@@ -1,0 +1,1 @@
+﻿This folder is mainly for add screenshots during the test execution.
