@@ -122,7 +122,7 @@ namespace PrePass.ChoresMediator.Tests.Tests
         [TestMethod, TestCategory("Smoke")]
         public async Task ValidateAddChoresButtonExist()
         {
-            Console.WriteLine("---------- Begin Test: VerifyAllChoresList ----------");
+            Console.WriteLine("---------- Begin Test: ValidateAddChoresButtonExist ----------");
             try
             {
                 _pageActions = new PageActions(Page);
@@ -130,10 +130,7 @@ namespace PrePass.ChoresMediator.Tests.Tests
                 await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
                 await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
                 await _homePage.BtnAddFamilyMember.ClickAsync();
-                //Provide a valid name and role
-                await _homePage.TxtAddFamilyMemberName.FillAsync("Hema_" + DateTime.Now);
-                await _homePage.TxtAddFamilyMemberRole.FillAsync("Mom");
-                await _homePage.BtnAddFamilyMember.ClickAsync();
+
 
             }
             catch (Exception ex)
