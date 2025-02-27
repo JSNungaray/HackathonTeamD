@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
+import { useMemo } from "react"
 import { FamilyMemberCard } from "./FamilyMemberCard"
 import { Button } from "@/components/ui/button"
 import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog"
-import { fetchUsers } from "@/lib/utils"
-import { User } from "@/App"
+import { useApi } from "@/services/ApiContext"
+import { mapToFrontendFamilyMembers } from "@/services/adapters"
 
 interface FamilyMembersListProps {
   selectedMemberId: string
@@ -11,15 +11,20 @@ interface FamilyMembersListProps {
 }
 
 export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMembersListProps) {
-  const [familyMembers, setFamilyMembers] = useState<User[]>([]);
+  const { users, deleteUser } = useApi();
+  
+  // Convert backend users to frontend format
+  const familyMembers = useMemo(() => 
+    mapToFrontendFamilyMembers(users), 
+    [users]
+  );
 
-  useEffect(() => {
-    fetchUsers().then(u => setFamilyMembers(u));
-  }, []);
-
-  const handleDelete = (memberId: string) => {
-    // Delete functionality will be handled by another developer
-    console.log('Delete member:', memberId)
+  const handleDelete = async (memberId: string) => {
+    try {
+      await deleteUser(parseInt(memberId, 10));
+    } catch (error) {
+      console.error('Error deleting family member:', error);
+    }
   }
 
   return (
@@ -53,7 +58,7 @@ export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMe
           <FamilyMemberCard
             key={member.id}
             name={member.userName}
-            role={member.userType == '1' ? 'Parent' : 'Child'}
+            role={member.userType === '1' ? 'Parent' : 'Child'}
             isSelected={selectedMemberId === member.id}
             onClick={() => onSelectMember(member.id)}
             onDelete={() => handleDelete(member.id)}
