@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Chore } from "@/components/Chore"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { User } from "@/App"
+import { fetchUsers } from "@/lib/utils"
 
 interface ChoreEditFormProps {
   editedChore: Chore
@@ -25,35 +26,7 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
   const [userList, setUserList] = useState<User[]>([])
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/User/GetUserList`);
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        console.log('API Response:', data); // Debug log
-
-        if (!Array.isArray(data)) {
-          console.error('Expected array of users, received:', typeof data);
-          return;
-        }
-
-        setUserList(data.map((user: User) => ({
-          id: user.id,
-          userName: user.userName,
-          userType: user.userType
-        })));
-      } catch (error) {
-        console.error('Error fetching users:', error);
-        console.log('Response details:', {
-          url: `${import.meta.env.VITE_API_URL}/User/GetUserList`,
-          error
-        });
-      }
-    };
-
-    fetchUsers();
+    fetchUsers().then(u => setUserList(u));
   }, []);
 
   const validateField = (name: string, value: string) => {
