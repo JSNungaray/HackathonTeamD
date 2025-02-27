@@ -1,13 +1,11 @@
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
+import { ChoreEditForm } from "@/components/ChoreEditForm"
 
 export interface Chore {
-  id: number
+  id?: number
   name: string
   description: string
   assignedTo: string
@@ -47,59 +45,15 @@ export default function ChoreComponent({ chore, avatarUrl, onUpdate }: ChoreProp
 
   if (isEditing) {
     return (
-      <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded-lg">
-        <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
-          <Input
-            id="name"
-            value={editedChore.name}
-            onChange={(e) => setEditedChore({ ...editedChore, name: e.target.value })}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="description">Description</Label>
-          <Input
-            id="description"
-            value={editedChore.description}
-            onChange={(e) => setEditedChore({ ...editedChore, description: e.target.value })}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="assignedTo">Assigned To</Label>
-          <Input
-            id="assignedTo"
-            value={editedChore.assignedTo}
-            onChange={(e) => setEditedChore({ ...editedChore, assignedTo: e.target.value })}
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="dueDate">Due Date</Label>
-          <Input
-            id="dueDate"
-            type="date"
-            value={editedChore.dueDate.split('T')[0]}
-            onChange={(e) => setEditedChore({ ...editedChore, dueDate: e.target.value })}
-          />
-        </div>
-
-        <div className="flex gap-2">
-          <Button type="submit">Save Changes</Button>
-          <Button
-            type="button"
-            variant="outline"
-            className="dark:text-black"
-            onClick={() => {
-              setEditedChore(chore)
-              setIsEditing(false)
-            }}
-          >
-            Cancel
-          </Button>
-        </div>
-      </form>
+      <ChoreEditForm
+        editedChore={editedChore}
+        onSubmit={handleSubmit}
+        onChange={setEditedChore}
+        onCancel={() => {
+          setEditedChore(chore)
+          setIsEditing(false)
+        }}
+      />
     )
   }
 
