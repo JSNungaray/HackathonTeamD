@@ -16,7 +16,7 @@ interface Chore {
   title: string
   description: string
   dueDate: string
-  status: 'pending' | 'completed'
+  status: 'not started' | 'pending' | 'completed'
   assignedTo?: FamilyMember
 }
 
@@ -60,7 +60,7 @@ export function ChoresList({ chores }: ChoresListProps) {
         data-testid="add-chore-modal"
       >
         <ChoreEditForm 
-          editedChore={{ id: 0, name: '', description: '', dueDate: '', status: '', assignedTo: '' }}
+          editedChore={{ id: 0, name: '', description: '', dueDate: '', status: 'not started', assignedTo: '' }}
           onSubmit={async (e) => { e.preventDefault(); }}
           onCancel={() => setIsModalOpen(false)}
           onChange={() => { }}

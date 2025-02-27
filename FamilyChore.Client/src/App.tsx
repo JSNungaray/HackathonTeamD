@@ -40,7 +40,7 @@ const mockChores = [
     title: "Do Laundry",
     description: "Wash, dry, and fold clothes",
     dueDate: "2024-02-29",
-    status: "pending" as const,
+    status: "not started" as const,
   },
 ]
 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Chore } from "@/components/Chore"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface ChoreEditFormProps {
   editedChore: Chore
@@ -141,6 +142,26 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
           className={errors.dueDate ? 'border-destructive' : ''}
           data-testid="chore-edit-dueDate-input"
         />
+      </div>
+
+      <div className="space-y-2" data-testid="chore-edit-status-container">
+        <Label htmlFor="status" data-testid="chore-edit-status-label">
+          <span data-testid="chore-edit-status-label-text">Status</span>
+        </Label>
+        <Select 
+          value={editedChore.status} 
+          onValueChange={(value) => handleChange('status', value)}
+          data-testid="chore-edit-status-select"
+        >
+          <SelectTrigger id="status" data-testid="chore-edit-status-trigger">
+            <SelectValue placeholder="Select status" data-testid="chore-edit-status-value" />
+          </SelectTrigger>
+          <SelectContent data-testid="chore-edit-status-content">
+            <SelectItem value="not started" data-testid="chore-edit-status-option-not-started">Not Started</SelectItem>
+            <SelectItem value="pending" data-testid="chore-edit-status-option-pending">Pending</SelectItem>
+            <SelectItem value="completed" data-testid="chore-edit-status-option-completed">Completed</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       <div className="flex gap-2" data-testid="chore-edit-buttons-container">

@@ -82,12 +82,14 @@ export default function ChoreComponent({ chore, avatarUrl, onUpdate }: ChoreProp
           )}
           <span className="text-sm text-muted-foreground" data-testid="choredetails-assignedTo-name">{chore.assignedTo ?? 'Unassigned'}</span>
         </div>
-        <Badge
-          variant={chore.status === 'completed' ? 'success' : 'secondary'}
-          data-testid="choredetails-status"
-        >
-          {chore.status}
-        </Badge>
+        {chore.status !== 'not started' && (
+          <Badge
+            variant={chore.status === 'completed' ? 'success' : 'secondary'}
+            data-testid="choredetails-status"
+          >
+            {chore.status}
+          </Badge>
+        )}
       </CardFooter>
     </Card>
   )

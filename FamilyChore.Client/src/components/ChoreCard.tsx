@@ -9,7 +9,7 @@ interface ChoreProps {
   title: string
   description: string
   dueDate: string
-  status: 'pending' | 'completed'
+  status: 'not started' | 'pending' | 'completed'
   assignedTo?: {
     name: string
     avatarUrl?: string
@@ -49,12 +49,14 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
           ) : (
             <span className="text-sm text-muted-foreground" data-testid={`chore-unassigned-${titleSlug}`}>Unassigned</span>
           )}
-          <Badge
-            variant={status === 'completed' ? 'success' : 'secondary'}
-            data-testid={`chore-status-${titleSlug}`}
-          >
-            {status}
-          </Badge>
+          {status !== 'not started' && (
+            <Badge
+              variant={status === 'completed' ? 'success' : 'secondary'}
+              data-testid={`chore-status-${titleSlug}`}
+            >
+              {status}
+            </Badge>
+          )}
         </CardFooter>
       </Card>
 
