@@ -7,28 +7,31 @@ namespace PrePass.ChoresMediator.Tests.Pages
 
     public class BaseClass : PageTest
     {
-        protected string? ValidAdminEmail { get; private set; }
-        protected string? ValidAdminPassword { get; private set; }
-
+        private string? testMethodName;
 
         [TestInitialize]
         public async Task TestInitialize()
         {
             LocalCommon.InitializeConfiguration();
             string? ApplicationURL = LocalCommon.TestConfiguration["ApplicationURL"];
-            ValidAdminEmail = LocalCommon.TestConfiguration["ValidAdminEmail"];
-            ValidAdminPassword = LocalCommon.TestConfiguration["ValidAdminPassword"];
+
             Page.SetDefaultTimeout(120000);
 
             await Page.SetViewportSizeAsync(1200, 670); //(1200, 670); //(1920, 1080)
 
+            testMethodName = TestContext.TestName;
+
             if (ApplicationURL != null)
             {
+                if (testMethodName == "CheckHomePageUrl_BadUrl")
+                {
+                    return;
+                }
                 await Page.GotoAsync(ApplicationURL);
             }
             else
             {
-                throw new Exception("ApplicationURL is null.");
+                throw new Exception("ApplicationURL is Null.");
             }
 
             // Maximize the window using JavaScript

@@ -53,6 +53,31 @@ namespace PrePass.ChoresMediator.Tests.Tests
         }
 
 
+
+        [TestMethod, TestCategory("Smoke")]
+        public async Task CheckHomePageUrl_BadUrl()
+        {
+            Console.WriteLine("---------- Begin Test: Verify Incorrect Url ----------");
+            try
+            {
+                _pageActions = new PageActions(Page);
+                Console.WriteLine("Initialize Page...");
+                await Page.GotoAsync("http://localhost:5172/index.html");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Incorrect URL!");
+                throw;
+            }
+            finally
+            {
+                //Use for test cleanup
+                Console.WriteLine("---------- End Test:  Verify Incorrect Url ----------");
+            }
+        }
+
+
+
         [TestMethod, TestCategory("Smoke")]
         public async Task AddFamilyMembers()
         {
