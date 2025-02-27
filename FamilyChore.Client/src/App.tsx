@@ -62,7 +62,7 @@ function App() {
         </div>
       </header>
       <div className="flex flex-col md:flex-row" data-testid="app-content">
-        <aside className="w-full md:w-64 border-r" data-testid="app-sidebar">
+        <aside className="w-full md:w-[320px] border-r" data-testid="app-sidebar">
           <FamilyMembersList
             selectedMemberId={selectedMemberId}
             onSelectMember={setSelectedMemberId}
