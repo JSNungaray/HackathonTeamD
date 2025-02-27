@@ -23,7 +23,7 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
   return (
     <>
       <Card className="w-full hover:bg-accent/5 transition-colors flex flex-col h-full" data-testid={`chore-card-${titleSlug}`}
-        onClick={() => { setIsModalOpen(true) }}
+        // onClick={() => { setIsModalOpen(true) }}
       >
         <CardHeader className="pb-2" data-testid={`chore-header-${titleSlug}`}>
           <div className="flex justify-center items-center" data-testid={`chore-title-container-${titleSlug}`}>
@@ -32,10 +32,10 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
         </CardHeader>
         <CardContent className="flex-grow" data-testid={`chore-content-${titleSlug}`}>
           <p className="text-sm text-muted-foreground mb-4" data-testid={`chore-description-${titleSlug}`}>{description}</p>
-          <p className="text-sm font-medium" data-testid={`chore-due-date-${titleSlug}`}>
+          {/* <p className="text-sm font-medium" data-testid={`chore-due-date-${titleSlug}`}>
             <span data-testid={`chore-due-date-label-${titleSlug}`}>Due: </span>
             <span data-testid={`chore-due-date-value-${titleSlug}`}>{dueDate}</span>
-          </p>
+          </p> */}
         </CardContent>
         <CardFooter className="flex justify-between mt-auto" data-testid={`chore-footer-${titleSlug}`}>
           {assignedTo ? (

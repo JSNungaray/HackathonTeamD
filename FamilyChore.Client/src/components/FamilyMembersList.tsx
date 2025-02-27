@@ -31,7 +31,7 @@ export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMe
     <div className="p-4" data-testid="family-members-list">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold" data-testid="family-members-heading">Family Members</h2>
-        <AddFamilyMemberDialog />
+        {/* <AddFamilyMemberDialog /> */}
       </div>
       <div className="flex gap-2 mb-4" data-testid="family-members-filters">
         <Button

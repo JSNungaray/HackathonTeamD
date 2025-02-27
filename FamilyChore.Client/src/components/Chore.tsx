@@ -3,7 +3,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { ChoreEditForm } from "@/components/ChoreEditForm"
-import { User } from "@/App"
+import { User } from "@/models/types"
 
 export interface Chore {
   id?: number

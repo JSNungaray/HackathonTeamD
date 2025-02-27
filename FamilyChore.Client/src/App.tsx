@@ -4,6 +4,7 @@ import { ChoresList } from './components/ChoresList'
 import { ApiProvider } from './services/ApiContext'
 import { useApi } from './services/ApiContext'
 import { mapToFrontendChores } from './services/adapters'
+import { Chore } from './models/types'
 
 // Remove the local User interface since we now have it in models/types.ts
 // export interface User {
@@ -15,7 +16,7 @@ import { mapToFrontendChores } from './services/adapters'
 // Wrap the main app content with the API provider
 function AppContent() {
   const [selectedMemberId, setSelectedMemberId] = useState<string>("all")
-  const { choresWithDetails, loading, error } = useApi();
+  const { choresWithDetails, loading, error, refreshAll } = useApi();
 
   // Convert backend models to frontend models
   const frontendChores = useMemo(() => 
@@ -34,6 +35,14 @@ function AppContent() {
       (!chore.assignedTo && selectedMemberId === "unassigned")
     );
   }, [frontendChores, selectedMemberId]);
+
+  const addChoreToList = async (chore: Chore) => {
+    try {
+      await refreshAll();
+    } catch (error) {
+      console.error('Failed to add chore:', error);
+    }
+  }
 
   if (loading) {
     return (
@@ -72,7 +81,7 @@ function AppContent() {
           />
         </aside>
         <main className="flex-1" data-testid="app-main">
-          <ChoresList chores={filteredChores} />
+          <ChoresList chores={filteredChores} onChoreAdded={addChoreToList} />
         </main>
       </div>
     </div>

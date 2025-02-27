@@ -2,7 +2,7 @@ import { User, Chore, ChoreAssignment, ChoreWithDetails, UserWithChores } from '
 
 // Base API URL - adjust this based on your backend configuration
 // Using the default ASP.NET Core port for development
-const API_BASE_URL = 'https://localhost:7080';
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}`;
 
 // Error handling helper
 const handleResponse = async (response: Response) => {
@@ -117,7 +117,7 @@ export const choreApi = {
 // Chore Assignment API calls
 export const choreAssignmentApi = {
   getAll: async (): Promise<ChoreAssignment[]> => {
-    const response = await fetch(`${API_BASE_URL}/Admin/GetAssignmentList`);
+    const response = await fetch(`${API_BASE_URL}/Admin/LoadAssignmentList`);
     return handleResponse(response);
   },
   
@@ -132,7 +132,7 @@ export const choreAssignmentApi = {
   },
   
   add: async (assignment: Omit<ChoreAssignment, 'id'>): Promise<ChoreAssignment> => {
-    const response = await fetch(`${API_BASE_URL}/Admin/AddChoreAssignment`, {
+    const response = await fetch(`${API_BASE_URL}/Admin/AddAssignment`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

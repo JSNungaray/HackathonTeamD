@@ -21,9 +21,9 @@ export enum UserType {
 
 // Interfaces that match backend models
 export interface User {
-  id: number;
+  id: string;
   userName: string;
-  userType: UserType;
+  userType: string;
 }
 
 export interface ChoreTask {
@@ -38,6 +38,7 @@ export interface Chore {
   choreName: string;
   frequency: Frequency;
   tasks: ChoreTask[];
+  assignedTo?: User;
 }
 
 export interface ChoreAssignment {
@@ -54,6 +55,7 @@ export interface ChoreAssignment {
 export interface ChoreWithDetails extends Chore {
   assignedTo?: User;
   status?: ChoreStatus;
+  dueDate?: string; // ISO date string
 }
 
 export interface UserWithChores extends User {
