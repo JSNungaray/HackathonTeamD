@@ -70,7 +70,7 @@ function AppContent() {
     <div className="min-h-screen" data-testid="app">
       <header className="border-b md:border-b" data-testid="app-header">
         <div className="container mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold" data-testid="app-title">Family Chores</h1>
+          <h1 className="text-2xl font-bold" data-testid="app-title">Chores Mediator</h1>
         </div>
       </header>
       <div className="flex flex-col md:flex-row" data-testid="app-content">
