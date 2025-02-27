@@ -78,12 +78,12 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded-lg">
-      <div className="space-y-2">
-        <Label htmlFor="name" className="flex justify-between">
-          <span>Name</span>
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 rounded-lg" data-testid="chore-edit-form">
+      <div className="space-y-2" data-testid="chore-edit-name-container">
+        <Label htmlFor="name" className="flex justify-between" data-testid="chore-edit-name-label">
+          <span data-testid="chore-edit-name-label-text">Name</span>
           {touched.name && errors.name && (
-            <span className="text-sm text-destructive">{errors.name}</span>
+            <span className="text-sm text-destructive" data-testid="chore-edit-name-error">{errors.name}</span>
           )}
         </Label>
         <Input
@@ -92,14 +92,15 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
           onChange={(e) => handleChange('name', e.target.value)}
           onBlur={() => handleBlur('name')}
           className={errors.name ? 'border-destructive' : ''}
+          data-testid="chore-edit-name-input"
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="description" className="flex justify-between">
-          <span>Description</span>
+      <div className="space-y-2" data-testid="chore-edit-description-container">
+        <Label htmlFor="description" className="flex justify-between" data-testid="chore-edit-description-label">
+          <span data-testid="chore-edit-description-label-text">Description</span>
           {touched.description && errors.description && (
-            <span className="text-sm text-destructive">{errors.description}</span>
+            <span className="text-sm text-destructive" data-testid="chore-edit-description-error">{errors.description}</span>
           )}
         </Label>
         <Input
@@ -108,23 +109,27 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
           onChange={(e) => handleChange('description', e.target.value)}
           onBlur={() => handleBlur('description')}
           className={errors.description ? 'border-destructive' : ''}
+          data-testid="chore-edit-description-input"
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="assignedTo">Assigned To</Label>
+      <div className="space-y-2" data-testid="chore-edit-assignedTo-container">
+        <Label htmlFor="assignedTo" data-testid="chore-edit-assignedTo-label">
+          <span data-testid="chore-edit-assignedTo-label-text">Assigned To</span>
+        </Label>
         <Input
           id="assignedTo"
           value={editedChore.assignedTo}
           onChange={(e) => handleChange('assignedTo', e.target.value)}
+          data-testid="chore-edit-assignedTo-input"
         />
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="dueDate" className="flex justify-between">
-          <span>Due Date</span>
+      <div className="space-y-2" data-testid="chore-edit-dueDate-container">
+        <Label htmlFor="dueDate" className="flex justify-between" data-testid="chore-edit-dueDate-label">
+          <span data-testid="chore-edit-dueDate-label-text">Due Date</span>
           {touched.dueDate && errors.dueDate && (
-            <span className="text-sm text-destructive">{errors.dueDate}</span>
+            <span className="text-sm text-destructive" data-testid="chore-edit-dueDate-error">{errors.dueDate}</span>
           )}
         </Label>
         <Input
@@ -134,15 +139,17 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
           onChange={(e) => handleChange('dueDate', e.target.value)}
           onBlur={() => handleBlur('dueDate')}
           className={errors.dueDate ? 'border-destructive' : ''}
+          data-testid="chore-edit-dueDate-input"
         />
       </div>
 
-      <div className="flex gap-2">
-        <Button type="submit">Save Changes</Button>
+      <div className="flex gap-2" data-testid="chore-edit-buttons-container">
+        <Button type="submit" data-testid="chore-edit-save-button">Save Changes</Button>
         <Button
           type="button"
           variant="outline"
           onClick={onCancel}
+          data-testid="chore-edit-cancel-button"
         >
           Cancel
         </Button>
