@@ -5,9 +5,9 @@ using FamilyChore.Server.Models;
 
 namespace FamilyChore.Server.Controllers
 {
-        [ApiController]
-        [Route("[controller]")]
-    public class UserController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : ControllerBase
     {
         private readonly IManageUser _manageUser;
         public UserController(IManageUser manageUser)
@@ -28,7 +28,7 @@ namespace FamilyChore.Server.Controllers
         }
 
         [HttpGet("GetUserList")]
-        public IActionResult GetUserList(int id)
+        public IActionResult GetUserList()
         {
             return new OkObjectResult(_manageUser.LoadUsers());
         }

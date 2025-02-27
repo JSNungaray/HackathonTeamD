@@ -1,0 +1,27 @@
+[
+  {
+    "ID": 1,
+    "UserName": "JohnDoe",
+    "UserType": 1
+  },
+  {
+    "ID": 2,
+    "UserName": "JaneDoe",
+    "UserType": 2
+  },
+  {
+    "ID": 3,
+    "UserName": "NewUser",
+    "UserType": 2
+  },
+  {
+    "ID": 4,
+    "UserName": "LittleSammy",
+    "UserType": 2
+  },
+  {
+    "ID": 5,
+    "UserName": "Dad",
+    "UserType": 1
+  }
+]
