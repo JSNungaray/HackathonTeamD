@@ -40,7 +40,7 @@ const mockChores = [
     title: "Do Laundry",
     description: "Wash, dry, and fold clothes",
     dueDate: "2024-02-29",
-    status: "pending" as const,
+    status: "not started" as const,
   },
 ]
 
@@ -56,13 +56,13 @@ function App() {
 
   return (
     <div className="min-h-screen" data-testid="app">
-      <header className="border-b" data-testid="app-header">
+      <header className="border-b md:border-b" data-testid="app-header">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-2xl font-bold" data-testid="app-title">Family Chores</h1>
         </div>
       </header>
       <div className="flex flex-col md:flex-row" data-testid="app-content">
-        <aside className="w-full md:w-[320px] border-r" data-testid="app-sidebar">
+        <aside className="w-full md:w-[320px] md:border-r" data-testid="app-sidebar">
           <FamilyMembersList
             selectedMemberId={selectedMemberId}
             onSelectMember={setSelectedMemberId}

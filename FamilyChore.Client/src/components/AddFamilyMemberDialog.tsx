@@ -32,26 +32,26 @@ export function AddFamilyMemberDialog({ trigger }: AddFamilyMemberDialogProps) {
 
   const defaultTrigger = (
     <Button variant="ghost" size="icon" data-testid="add-family-member-button">
-      <PlusIcon className="h-5 w-5" />
-      <span className="sr-only">Add Family Member</span>
+      <PlusIcon className="h-5 w-5" data-testid="add-family-member-icon" />
+      <span className="sr-only" data-testid="add-family-member-sr-text">Add Family Member</span>
     </Button>
   )
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen} data-testid="add-family-member-dialog-container">
+      <DialogTrigger asChild data-testid="add-family-member-trigger">
         {trigger || defaultTrigger}
       </DialogTrigger>
       <DialogContent data-testid="add-family-member-dialog">
-        <DialogHeader>
-          <DialogTitle>Add Family Member</DialogTitle>
-          <DialogDescription>
+        <DialogHeader data-testid="add-family-member-header">
+          <DialogTitle data-testid="add-family-member-title">Add Family Member</DialogTitle>
+          <DialogDescription data-testid="add-family-member-description">
             Add a new member to your family group.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+        <form onSubmit={handleSubmit} className="space-y-4" data-testid="add-family-member-form">
+          <div className="space-y-2" data-testid="family-member-name-container">
+            <Label htmlFor="name" data-testid="family-member-name-label">Name</Label>
             <Input
               id="name"
               data-testid="family-member-name-input"
@@ -61,8 +61,8 @@ export function AddFamilyMemberDialog({ trigger }: AddFamilyMemberDialogProps) {
               required
             />
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="role">Role</Label>
+          <div className="space-y-2" data-testid="family-member-role-container">
+            <Label htmlFor="role" data-testid="family-member-role-label">Role</Label>
             <Input
               id="role"
               data-testid="family-member-role-input"
@@ -72,7 +72,7 @@ export function AddFamilyMemberDialog({ trigger }: AddFamilyMemberDialogProps) {
               required
             />
           </div>
-          <DialogFooter>
+          <DialogFooter data-testid="add-family-member-footer">
             <Button
               type="button"
               variant="outline"

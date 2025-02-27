@@ -12,6 +12,7 @@ interface ModalProps {
   title?: string
   description?: string
   children: React.ReactNode
+  "data-testid"?: string
 }
 
 export function Modal({
@@ -19,22 +20,25 @@ export function Modal({
   onClose,
   title,
   description,
-  children
+  children,
+  "data-testid": dataTestId = "modal"
 }: ModalProps) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white dark:bg-gray-800">
+    <Dialog open={isOpen} onOpenChange={onClose} data-testid={`${dataTestId}-container`}>
+      <DialogContent className="bg-card text-card-foreground" data-testid={`${dataTestId}-content`}>
         {(title || description) && (
-          <DialogHeader>
-            {title && <DialogTitle>{title}</DialogTitle>}
+          <DialogHeader data-testid={`${dataTestId}-header`}>
+            {title && <DialogTitle data-testid={`${dataTestId}-title`}>{title}</DialogTitle>}
             {description && (
-              <DialogDescription>
+              <DialogDescription data-testid={`${dataTestId}-description`}>
                 {description}
               </DialogDescription>
             )}
           </DialogHeader>
         )}
-        {children}
+        <div data-testid={`${dataTestId}-body`}>
+          {children}
+        </div>
       </DialogContent>
     </Dialog>
   )

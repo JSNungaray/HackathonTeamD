@@ -10,12 +10,9 @@
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-<<<<<<< HEAD
-=======
 
   width: 100dvw;
   height: 100dvh;
->>>>>>> main
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -67,38 +64,63 @@
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.141 0.005 285.823);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.141 0.005 285.823);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
-  --primary-foreground: oklch(0.21 0.006 285.885);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.396 0.141 25.723);
-  --destructive-foreground: oklch(0.637 0.237 25.331);
-  --border: oklch(0.274 0.006 286.033);
-  --input: oklch(0.274 0.006 286.033);
-  --ring: oklch(0.442 0.017 285.786);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.274 0.006 286.033);
-  --sidebar-ring: oklch(0.442 0.017 285.786);
+  /* Dark navy blue background */
+  --background: #1a202c;
+  --foreground: #f7fafc;
+  
+  /* Slightly lighter navy for cards */
+  --card: #2d3748;
+  --card-foreground: #f7fafc;
+  
+  /* Popover styling */
+  --popover: #2d3748;
+  --popover-foreground: #f7fafc;
+  
+  /* Primary accent - blue for buttons and highlights */
+  --primary: #3182ce;
+  --primary-foreground: #f7fafc;
+  
+  /* Secondary accent - slightly muted blue */
+  --secondary: #2b6cb0;
+  --secondary-foreground: #f7fafc;
+  
+  /* Muted elements */
+  --muted: #4a5568;
+  --muted-foreground: #cbd5e0;
+  
+  /* Accent elements */
+  --accent: #3182ce;
+  --accent-foreground: #f7fafc;
+  
+  /* Destructive elements */
+  --destructive: #e53e3e;
+  --destructive-foreground: #fff5f5;
+  
+  /* Borders and inputs */
+  --border: #4a5568;
+  --input: #4a5568;
+  --ring: #3182ce;
+  
+  /* Chart colors with good contrast */
+  --chart-1: #4299e1;
+  --chart-2: #38b2ac;
+  --chart-3: #9f7aea;
+  --chart-4: #ed8936;
+  --chart-5: #48bb78;
+  
+  /* Sidebar styling */
+  --sidebar: #2d3748;
+  --sidebar-foreground: #f7fafc;
+  --sidebar-primary: #4299e1;
+  --sidebar-primary-foreground: #f7fafc;
+  --sidebar-accent: #3182ce;
+  --sidebar-accent-foreground: #f7fafc;
+  --sidebar-border: #4a5568;
+  --sidebar-ring: #3182ce;
+  
+  /* Success color for completed items */
+  --success: #38a169;
+  --success-foreground: #f7fafc;
 }
 
 @theme inline {
