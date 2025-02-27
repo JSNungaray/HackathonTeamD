@@ -131,7 +131,7 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
           value={editedChore.assignedTo.toString()}
           onValueChange={(value) => handleChange('assignedTo', value)}
         >
-          <SelectTrigger>
+          <SelectTrigger data-testid={"chore-edit-assignedTo-button"}>
             <SelectValue placeholder="Select a user..." />
           </SelectTrigger>
           <SelectContent>
