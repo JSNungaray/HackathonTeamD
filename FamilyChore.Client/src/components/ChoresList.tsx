@@ -40,7 +40,7 @@ export function ChoresList({ chores }: ChoresListProps) {
             Add Chore
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" data-testid="chores-grid">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr" data-testid="chores-grid">
           {chores.map((chore) => (
             <ChoreCard
               key={chore.id}

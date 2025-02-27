@@ -22,25 +22,19 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
 
   return (
     <>
-      <Card className="w-full hover:bg-accent/5 transition-colors" data-testid={`chore-card-${titleSlug}`}
+      <Card className="w-full hover:bg-accent/5 transition-colors flex flex-col h-full" data-testid={`chore-card-${titleSlug}`}
         onClick={() => { setIsModalOpen(true) }}
       >
-        <CardHeader>
-          <div className="flex justify-between items-start">
-            <h3 className="font-semibold text-lg" data-testid={`chore-title-${titleSlug}`}>{title}</h3>
-            <Badge
-              variant={status === 'completed' ? 'default' : 'secondary'}
-              data-testid={`chore-status-${titleSlug}`}
-            >
-              {status}
-            </Badge>
+        <CardHeader className="pb-2">
+          <div className="flex justify-center items-center">
+            <h3 className="font-semibold text-lg text-center" data-testid={`chore-title-${titleSlug}`}>{title}</h3>
           </div>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex-grow">
           <p className="text-sm text-muted-foreground mb-4" data-testid={`chore-description-${titleSlug}`}>{description}</p>
           <p className="text-sm font-medium" data-testid={`chore-due-date-${titleSlug}`}>Due: {dueDate}</p>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="flex justify-between mt-auto">
           {assignedTo ? (
             <div className="flex items-center gap-2" data-testid={`chore-assigned-to-${titleSlug}`}>
               <Avatar className="h-6 w-6">
@@ -52,6 +46,12 @@ export function ChoreCard({ title, description, dueDate, status, assignedTo }: C
           ) : (
             <span className="text-sm text-muted-foreground" data-testid={`chore-unassigned-${titleSlug}`}>Unassigned</span>
           )}
+          <Badge
+            variant={status === 'completed' ? 'success' : 'secondary'}
+            data-testid={`chore-status-${titleSlug}`}
+          >
+            {status}
+          </Badge>
         </CardFooter>
       </Card>
 

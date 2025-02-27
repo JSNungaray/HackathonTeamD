@@ -58,23 +58,17 @@ export default function ChoreComponent({ chore, avatarUrl, onUpdate }: ChoreProp
   }
 
   return (
-    <Card className="w-full dark:bg-gray-800 border-none dark:text-white" data-testid={`choredetails`}>
-      <CardHeader>
-        <div className="flex justify-between items-start">
-          <h3 className="font-semibold text-lg" data-testid={`choredetails-name`}>{chore.name}</h3>
-          <Badge
-            variant={chore.status === 'completed' ? 'default' : 'secondary'}
-            data-testid={`choredetails-status`}
-          >
-            {chore.status}
-          </Badge>
+    <Card className="w-full border-none flex flex-col h-full" data-testid={`choredetails`}>
+      <CardHeader className="pb-2">
+        <div className="flex justify-center items-center">
+          <h3 className="font-semibold text-lg text-center" data-testid={`choredetails-name`}>{chore.name}</h3>
         </div>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-grow">
         <p className="text-sm text-muted-foreground mb-4" data-testid={`choredetails-description`}>{chore.description}</p>
         <p className="text-sm font-medium" data-testid={`choredetails-dueDate`}>Due: {chore.dueDate}</p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-between mt-auto">
         <div className="flex items-center gap-2">
           {chore.assignedTo && (
             <Avatar className="h-6 w-6" data-testid={`choredetails-assignedTo-Avatar`}>
@@ -84,6 +78,12 @@ export default function ChoreComponent({ chore, avatarUrl, onUpdate }: ChoreProp
           )}
           <span className="text-sm text-muted-foreground" data-testid={`choredetails-assignedTo-name`}>{chore.assignedTo ?? 'Unassigned'}</span>
         </div>
+        <Badge
+          variant={chore.status === 'completed' ? 'success' : 'secondary'}
+          data-testid={`choredetails-status`}
+        >
+          {chore.status}
+        </Badge>
       </CardFooter>
     </Card>
   )

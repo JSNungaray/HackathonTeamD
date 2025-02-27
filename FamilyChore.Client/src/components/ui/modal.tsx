@@ -23,7 +23,7 @@ export function Modal({
 }: ModalProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-white dark:bg-gray-800">
+      <DialogContent className="bg-card text-card-foreground">
         {(title || description) && (
           <DialogHeader>
             {title && <DialogTitle>{title}</DialogTitle>}

@@ -142,7 +142,6 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
         <Button
           type="button"
           variant="outline"
-          className="dark:text-black"
           onClick={onCancel}
         >
           Cancel
