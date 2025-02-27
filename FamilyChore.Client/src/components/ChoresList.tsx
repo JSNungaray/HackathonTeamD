@@ -33,7 +33,7 @@ export function ChoresList({ chores }: ChoresListProps) {
     description: '',
     dueDate: '',
     status: 'pending',
-    assignedTo: ''
+    assignedTo: '-1'
   })
   return (
     <>

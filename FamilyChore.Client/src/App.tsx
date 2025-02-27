@@ -44,6 +44,12 @@ const mockChores = [
   },
 ]
 
+export interface User {
+  id: string
+  userName: string
+  userType: string
+}
+
 function App() {
   const [selectedMemberId, setSelectedMemberId] = useState<string>("all")
 

@@ -1,14 +1,9 @@
+import { useState, useEffect } from "react"
 import { FamilyMemberCard } from "./FamilyMemberCard"
 import { Button } from "@/components/ui/button"
 import { AddFamilyMemberDialog } from "./AddFamilyMemberDialog"
-
-// Temporary mock data - this would typically come from an API
-const mockFamilyMembers = [
-  { id: "1", name: "John Doe", role: "Dad", avatarUrl: "" },
-  { id: "2", name: "Jane Doe", role: "Mom", avatarUrl: "" },
-  { id: "3", name: "Jimmy Doe", role: "Son", avatarUrl: "" },
-  { id: "4", name: "Jenny Doe", role: "Daughter", avatarUrl: "" },
-]
+import { fetchUsers } from "@/lib/utils"
+import { User } from "@/App"
 
 interface FamilyMembersListProps {
   selectedMemberId: string
@@ -16,6 +11,12 @@ interface FamilyMembersListProps {
 }
 
 export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMembersListProps) {
+  const [familyMembers, setFamilyMembers] = useState<User[]>([]);
+
+  useEffect(() => {
+    fetchUsers().then(u => setFamilyMembers(u));
+  }, []);
+
   const handleDelete = (memberId: string) => {
     // Delete functionality will be handled by another developer
     console.log('Delete member:', memberId)
@@ -48,12 +49,11 @@ export function FamilyMembersList({ selectedMemberId, onSelectMember }: FamilyMe
         </Button>
       </div>
       <div className="space-y-2" data-testid="family-members-grid">
-        {mockFamilyMembers.map((member) => (
+        {familyMembers.map((member) => (
           <FamilyMemberCard
             key={member.id}
-            name={member.name}
-            role={member.role}
-            avatarUrl={member.avatarUrl}
+            name={member.userName}
+            role={member.userType == '1' ? 'Parent' : 'Child'}
             isSelected={selectedMemberId === member.id}
             onClick={() => onSelectMember(member.id)}
             onDelete={() => handleDelete(member.id)}
