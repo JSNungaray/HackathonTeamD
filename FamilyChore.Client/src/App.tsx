@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FamilyMembersList } from './components/FamilyMembersList'
 import { ChoresList } from './components/ChoresList'
 import { Chore } from '@/components/Chore'
+import { fetchChores } from './lib/utils'
 
 export interface User {
   id: string
@@ -12,6 +13,10 @@ export interface User {
 function App() {
   const [selectedMemberId, setSelectedMemberId] = useState<string>("all")
   const [chores, setChores] = useState<Chore[]>([]);
+
+  useEffect(() => {
+    fetchChores().then(u => setChores(u));
+  }, []);
 
   const filteredChores = selectedMemberId === "all"
     ? chores

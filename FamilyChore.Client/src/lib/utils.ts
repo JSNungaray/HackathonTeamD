@@ -87,5 +87,8 @@ export const DeleteUser = async (id: number) => {
 export const GetUserById = async (id: number) => {
   const response = await sendRequest('GET', `User/GetUserById?id=${id}`);
   const data = await response.json();
+  if (!Array.isArray(data)) {
+    return [{ id: data.id, userName: data.userName, userType: data.userType }];
+  }
   return data.map((user: User) => ({ id: user.id, userName: user.userName, userType: user.userType }));
 }

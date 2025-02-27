@@ -84,28 +84,28 @@ export default function ChoreComponent({ chore, avatarUrl, onUpdate }: ChoreProp
         </div>
       </CardHeader>
       <CardContent className="flex-grow" data-testid="choredetails-content">
-        <p className="text-sm text-muted-foreground mb-4" data-testid="choredetails-description">{chore.ChoreAssignment.consequence}</p>
+        <p className="text-sm text-muted-foreground mb-4" data-testid="choredetails-description">{chore.ChoreAssignment?.consequence}</p>
         <p className="text-sm font-medium" data-testid="choredetails-dueDate">
           <span data-testid="choredetails-dueDate-label">Due: </span>
-          <span data-testid="choredetails-dueDate-value">{chore.ChoreAssignment.assignedDate}</span>
+          <span data-testid="choredetails-dueDate-value">{chore.ChoreAssignment?.assignedDate}</span>
         </p>
       </CardContent>
       <CardFooter className="flex justify-between mt-auto" data-testid="choredetails-footer">
         <div className="flex items-center gap-2" data-testid="choredetails-assignedTo-container">
-          {chore.ChoreAssignment.user && (
+          {chore.ChoreAssignment?.user && (
             <Avatar className="h-6 w-6" data-testid="choredetails-assignedTo-Avatar">
-              <AvatarImage src={avatarUrl} alt={chore.ChoreAssignment.user.userName} data-testid="choredetails-assignedTo-AvatarImage" />
-              <AvatarFallback data-testid="choredetails-assignedTo-AvatarFallback">{chore.ChoreAssignment.user.userName.slice(0, 2).toUpperCase()}</AvatarFallback>
+              <AvatarImage src={avatarUrl} alt={chore.ChoreAssignment?.user.userName} data-testid="choredetails-assignedTo-AvatarImage" />
+              <AvatarFallback data-testid="choredetails-assignedTo-AvatarFallback">{chore.ChoreAssignment?.user.userName.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
           )}
-          <span className="text-sm text-muted-foreground" data-testid="choredetails-assignedTo-name">{chore.ChoreAssignment.user.userName ?? 'Unassigned'}</span>
+          <span className="text-sm text-muted-foreground" data-testid="choredetails-assignedTo-name">{chore.ChoreAssignment?.user.userName ?? 'Unassigned'}</span>
         </div>
-        {chore.ChoreAssignment.choreStatus !== 0 && (
+        {chore.ChoreAssignment?.choreStatus !== 0 && (
           <Badge
-            variant={chore.ChoreAssignment.choreStatus === 2 ? 'success' : 'secondary'}
+            variant={chore.ChoreAssignment?.choreStatus === 2 ? 'success' : 'secondary'}
             data-testid="choredetails-status"
           >
-            {chore.ChoreAssignment.choreStatus === 2 ? 'completed' : 'pending'}
+            {chore.ChoreAssignment?.choreStatus === 2 ? 'completed' : 'pending'}
           </Badge>
         )}
       </CardFooter>

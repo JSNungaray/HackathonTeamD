@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FamilyChore.Server")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd7b11a658b520ae582ae01bb101c7025d590cd7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af4eb4618afff4c64bf96283bc653c29e2874546")]
 [assembly: System.Reflection.AssemblyProductAttribute("FamilyChore.Server")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FamilyChore.Server")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

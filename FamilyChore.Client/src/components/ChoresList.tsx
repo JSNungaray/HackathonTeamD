@@ -48,15 +48,7 @@ export function ChoresList({ chores }: ChoresListProps) {
           {chores.map((chore) => (
             <ChoreCard
               key={chore.id}
-              title={chore.choreName}
-              description={chore.ChoreAssignment?.consequence || ''}
-              dueDate={chore.ChoreAssignment?.assignedDate || ''}
-              status={chore.ChoreAssignment?.choreStatus === 2 ? 'completed' : 
-                     chore.ChoreAssignment?.choreStatus === 1 ? 'pending' : 'not started'}
-              assignedTo={chore.ChoreAssignment?.user ? {
-                name: chore.ChoreAssignment.user.userName,
-                avatarUrl: ''
-              } : undefined}
+              chore={chore}
             />
           ))}
         </div>
