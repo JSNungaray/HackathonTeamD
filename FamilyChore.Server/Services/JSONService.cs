@@ -9,25 +9,6 @@ namespace FamilyChore.Server.Services
 {
     public class JSONService
     {
-        //public interface IJSONService
-        //{
-        //    List<User> LoadUsers();
-        //    User GetUserById(int id);
-        //    User GetUserByName(string username);
-        //    void AddUser(User user);
-        //    void UpdateUser(User updatedUser);
-        //    void DeleteUser(int userId);
-        //    List<Chore> LoadChores();
-        //    Chore GetChoreById(int id);
-        //    Chore GetChoreByName(string choreName);
-        //    void SaveUsers(List<User> users);
-        //    void SaveChores(List<Chore> chores);
-        //    Chore AddChore(Chore chore);
-        //    void UpdateChore(Chore updatedChore);
-        //    void DeleteChore(int choreId);
-        //}
-
-
         private readonly string userPath = "Data/Users.json";
         private readonly string chorePath = "Data/Chores.json";
         private readonly string choreStatusPath = "Data/ChoreStatus.json";
@@ -44,6 +25,7 @@ namespace FamilyChore.Server.Services
             };
         }
 
+        #region User CRUD Operations
         public void SaveUsers( List<User> users)
         {
             var jsonString = JsonSerializer.Serialize(users, new JsonSerializerOptions { WriteIndented = true });
@@ -91,8 +73,9 @@ namespace FamilyChore.Server.Services
             users.RemoveAll(u => u.ID == userId);
             SaveUsers(users);
         }
+        #endregion
 
-
+        #region Chore object CRUD Operations
         // Chore CRUD operations
         public List<Chore> LoadChores()
         {
@@ -119,18 +102,13 @@ namespace FamilyChore.Server.Services
             File.WriteAllText(chorePath, jsonString);
         }
 
-        /// <summary>
-        /// TODO: Verify Tasks are handled correctly
-        /// </summary>
-        /// <param name="chore"></param>
         public Chore AddChore(Chore chore)
         {
             var chores = LoadChores();
             
             chores.Add(chore);
-            SaveChores( chores);
-            Chore newChore = chores.Last();  //VALIDATE THIS
-            return newChore;
+            SaveChores(chores);
+            return GetChoreByName(chore.ChoreName);
 
         }
 
@@ -170,7 +148,93 @@ namespace FamilyChore.Server.Services
             chores.RemoveAll(c => c.ID == choreId);            
             SaveChores(chores);
         }
-       
+
+        #endregion
+
+        #region ChoreAssignment CRUD Operations
+        public List<ChoreAssignment> LoadAssignments()
+        {
+            var jsonString = File.ReadAllText(choreAssignmentPath);
+            return JsonSerializer.Deserialize<List<ChoreAssignment>>(jsonString, _jsonOptions) ?? new List<ChoreAssignment>();
+        }
+
+        public ChoreAssignment GetAssignmentById(int id)
+        {
+            var assignments = LoadAssignments();
+            return assignments.FirstOrDefault(a => a.ID == id);
+        }
+        public List<ChoreAssignment> GetAssignmentsByUserId(int userId)
+        {
+            var assignments = LoadAssignments();
+            return assignments.Where(a => a.UserId == userId).ToList();
+        }
+
+        public void SaveAssignment(ChoreAssignment choreAssignments)
+        {
+            var jsonString = JsonSerializer.Serialize(choreAssignments, _jsonOptions);
+            File.WriteAllText(choreAssignmentPath, jsonString);
+        }
+
+
+        public ChoreAssignment AddChoreAssignment(ChoreAssignment newAssignment)
+        {
+            var assignments = LoadAssignments();
+            newAssignment.ID = assignments.Any() ? assignments.Max(a => a.ID) + 1 : 1; // Generate a new ID
+            assignments.Add(newAssignment);
+            SaveChoreAssignments(assignments);
+            return newAssignment;
+        }
+
+
+        public void UpdateAssignment(ChoreAssignment updatedAssignment)
+        {
+            var assignments = LoadAssignments();
+            var assignment = assignments.FirstOrDefault(a => a.ID == updatedAssignment.ID);
+            if (assignment != null)
+            {
+                assignment.ChoreId = updatedAssignment.ChoreId;
+                assignment.UserId = updatedAssignment.UserId;
+                assignment.AssignmentDate = updatedAssignment.AssignmentDate;
+                assignment.ChoreStatus = updatedAssignment.ChoreStatus;
+                assignment.Consequence = updatedAssignment.Consequence;
+                assignment.Reward = updatedAssignment.Reward;
+                SaveChoreAssignments(assignments);
+            }
+        }
+
+        public void DeleteAssignment(int assignmentId)
+        {
+            var assignments = LoadAssignments();
+            assignments.RemoveAll(a => a.ID == assignmentId);
+            SaveChoreAssignments(assignments);
+        }
+
+        public void SaveChoreAssignments(List<ChoreAssignment> choreAssignments)
+        {
+            var jsonString = JsonSerializer.Serialize(choreAssignments, _jsonOptions);
+            File.WriteAllText(choreAssignmentPath, jsonString);
+        }
+
+        #endregion
+
+        public string GenerateChoreAssignmentReport()
+        {
+            var assignments = LoadAssignments();
+            var chores = LoadChores();
+            var users = LoadUsers();
+
+            var report = assignments.Select(a => new
+            {
+                UserName = users.FirstOrDefault(u => u.ID == a.UserId)?.UserName,
+                ChoreName = chores.FirstOrDefault(c => c.ID == a.ChoreId)?.ChoreName,               
+                AssignmentDate = a.AssignmentDate?.ToString("yyyy-MM-dd"),
+                a.ChoreStatus,
+                a.Consequence,
+                a.Reward
+            }).ToList();
+
+            return JsonSerializer.Serialize(report, _jsonOptions);
+        }
 
     }
 }

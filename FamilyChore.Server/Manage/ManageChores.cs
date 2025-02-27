@@ -53,20 +53,18 @@ namespace FamilyChore.Server.Manage
 
         public Chore AddChore(Chore newChore)
         {
-            int id = _utils.MaxId<Chore>(filePath, 0);
+            int id = _utils.MaxId<Chore>(filePath);
+            id = id + 1;
 
             if (newChore.Tasks != null && newChore.Tasks.Length > 0)
-            {
-                int taskId = _utils.MaxId<ChoreTasks>(filePath, id);
+            {             
 
                 for (int i = 0; i < newChore.Tasks.Length; i++)
                 {
-                    newChore.Tasks[i].ID = taskId;
+                    newChore.Tasks[i].ID = i+1;
                     newChore.Tasks[i].ChoreId = id;
                     newChore.Tasks[i].TaskName = newChore.Tasks[i].TaskName;
-                    newChore.Tasks[i].TaskDescription = newChore.Tasks[i].TaskDescription;
-
-                    taskId++;
+                    newChore.Tasks[i].TaskDescription = newChore.Tasks[i].TaskDescription;                   
                 }
             }
 
@@ -85,5 +83,6 @@ namespace FamilyChore.Server.Manage
         {
             _jsonService.UpdateChore(updatedChore);
         }
+      
     }
 }
