@@ -9,7 +9,7 @@ namespace FamilyChore.Server.Data
         }
         public enum ChoreStatus
         {
-            NotStarted,
+            NotStarted = 1,
             InProgress,
             Completed
         }
@@ -24,7 +24,7 @@ namespace FamilyChore.Server.Data
         }
         public enum UserTypes
         {
-            Parent,
+            Parent = 1,
             Child
         }
 

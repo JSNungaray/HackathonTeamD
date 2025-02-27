@@ -21,7 +21,7 @@ namespace FamilyChore.Server.Manage
     {
         private readonly JSONService _jsonService = jsonService;
         private readonly IUtilities _utils = utils;
-        private readonly string filePath = "Data/User.json";
+        private readonly string filePath = "Data/Users.json";
 
         public List<User> LoadUsers()
         {
@@ -37,17 +37,17 @@ namespace FamilyChore.Server.Manage
         }
         public User AddUser(User newUser)
         {
-            int id = _utils.MaxId<User>(filePath, 0);
+            int id = _utils.MaxId<User>(filePath);
 
             _jsonService.AddUser( new User
             {
-                ID = id,
+                ID = id+1,
                 UserName = newUser.UserName,
                 UserType = newUser.UserType,
             });
 
-            _jsonService.GetUserById(id);
-            return newUser;
+            
+            return _jsonService.GetUserById(id + 1); ;
         }
         public void UpdateUser(User updatedUser)
         {
