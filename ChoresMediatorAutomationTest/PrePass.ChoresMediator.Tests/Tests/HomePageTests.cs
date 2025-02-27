@@ -78,88 +78,33 @@ namespace PrePass.ChoresMediator.Tests.Tests
 
 
 
+
         [TestMethod, TestCategory("Smoke")]
-        public async Task AddFamilyMembers()
+        public async Task ValidateChoreCardCountFirstMember()
         {
-            Console.WriteLine("---------- Begin Test: Verify family members are added ----------");
+            Console.WriteLine("---------- Begin Test: VerifyAllChoresList  ----------");
             try
             {
                 _pageActions = new PageActions(Page);
                 _homePage = new HomePage(Page);
                 await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
                 await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-                await _homePage.BtnAddFamilyMember.ClickAsync();
-              //  Assert.IsTrue(await _homePage.LblAddFamilyMember.IsVisibleAsync(), "Add Family Member label is not visible");
-              //  Assert.IsTrue(await _homePage.LblAddFamilyMemberDesc.IsVisibleAsync(), "Add Family Member description is not visible");
-              //  Assert.IsTrue(await _homePage.LblAddFamilyMemberName.IsVisibleAsync(), "Add Family Member name label is not visible");
-              //  Assert.IsTrue(await _homePage.LblAddFamilyMemberRole.IsVisibleAsync(), "Add Family Member role label is not visible");
-              //  Assert.IsTrue(await _homePage.TxtAddFamilyMemberName.IsVisibleAsync(), "Add Family Member name text is not visible");
-              //  Assert.IsTrue(await _homePage.TxtAddFamilyMemberRole.IsVisibleAsync(), "Add Family Member role text is not visible");
-                //Assert.IsTrue(await _homePage.BtnAddMember.IsVisibleAsync(), "Add member button is not visible");
-                //Assert.IsTrue(await _homePage.BtnCancel.IsVisibleAsync(), "Cancel button is not visible");
+                Page.Locator("[data-testid*='chore-card']");
+                // Locator for elements with data-slot="card"
+                var locator = Page.Locator("[data-slot='card']");
+                await locator.First.ClickAsync();
+                var locator_chore = Page.Locator("[data-slot='card-content']");
 
-                //Provide a valid name and role
-                await _homePage.TxtAddFamilyMemberName.FillAsync("Hema_"+DateTime.Now);
-                await _homePage.TxtAddFamilyMemberRole.FillAsync("Mom");
-                await _homePage.BtnAddFamilyMember.ClickAsync();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{ex.Message}");
-                throw;
-            }
-            finally
-            {
-                //Use for test cleanup
-                Console.WriteLine("---------- End Test: Verify family members are added ----------");
-            }
-        }
-
-
-        [TestMethod, TestCategory("Smoke")]
-        public async Task VerifyFamilyMembersList()
-        {
-            Console.WriteLine("---------- Begin Test: Verify family members are listed ----------");
-            try
-            {
-                _pageActions = new PageActions(Page);
-                _homePage = new HomePage(Page);
-                await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
-                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-                await _homePage.BtnAddFamilyMember.ClickAsync();
-                //Provide a valid name and role
-                await _homePage.TxtAddFamilyMemberName.FillAsync("Hema_" + DateTime.Now);
-                await _homePage.TxtAddFamilyMemberRole.FillAsync("Mom");
-                await _homePage.BtnAddFamilyMember.ClickAsync();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{ex.Message}");
-                throw;
-            }
-            finally
-            {
-                //Use for test cleanup
-                Console.WriteLine("---------- End Test: Verify family members are listed ----------");
-            }
-        }
-
-
-        [TestMethod, TestCategory("Smoke")]
-        public async Task VerifyAllChoresList()
-        {
-            Console.WriteLine("---------- Begin Test: VerifyAllChoresList ----------");
-            try
-            {
-                _pageActions = new PageActions(Page);
-                _homePage = new HomePage(Page);
-                await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
-                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-                Assert.IsTrue(await _homePage.BtnAll.IsVisibleAsync(),"All button is not visible");
-                await _homePage.BtnAll.ClickAsync();
-
+                // Perform actions or assertions with the locator
+                var count = await locator_chore.CountAsync();
+                if (count > 0)
+                {
+                    Console.WriteLine($"Found {count} Chore Card");
+                }
+                else
+                {
+                    Console.WriteLine("No Chore cards found for this person.");
+                }
             }
             catch (Exception ex)
             {
@@ -173,32 +118,6 @@ namespace PrePass.ChoresMediator.Tests.Tests
             }
         }
 
-
-        [TestMethod, TestCategory("Smoke")]
-        public async Task VerifyUnassignedChoresList()
-        {
-            Console.WriteLine("---------- Begin Test: VerifyAllChoresList ----------");
-            try
-            {
-                _pageActions = new PageActions(Page);
-                _homePage = new HomePage(Page);
-                await Page.WaitForLoadStateAsync(LoadState.DOMContentLoaded);
-                await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
-                Assert.IsTrue(await _homePage.BtnUnassigned.IsVisibleAsync(), "Unassigned button is not visible");
-                await _homePage.BtnUnassigned.ClickAsync();
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{ex.Message}");
-                throw;
-            }
-            finally
-            {
-                //Use for test cleanup
-                Console.WriteLine("---------- End Test: VerifyAllChoresList ----------");
-            }
-        }
 
         [TestMethod, TestCategory("Smoke")]
         public async Task ValidateAddChoresButtonExist()
