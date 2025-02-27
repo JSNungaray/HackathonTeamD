@@ -24,15 +24,15 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
   const validateField = (name: string, value: string) => {
     switch (name) {
       case 'name':
-        return !value.trim() ? 'Name is required' : 
-               value.length < 3 ? 'Name must be at least 3 characters' : 
-               undefined
+        return !value.trim() ? 'Name is required' :
+          value.length < 3 ? 'Name must be at least 3 characters' :
+            undefined
       case 'description':
         return !value.trim() ? 'Description is required' : undefined
       case 'dueDate':
-        return !value ? 'Due date is required' : 
-               new Date(value) < new Date(new Date().toDateString()) ? 'Due date cannot be in the past' : 
-               undefined
+        return !value ? 'Due date is required' :
+          new Date(value) < new Date(new Date().toDateString()) ? 'Due date cannot be in the past' :
+            undefined
       default:
         return undefined
     }
@@ -47,7 +47,7 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
   const handleChange = (field: keyof Chore, value: string) => {
     const updatedChore = { ...editedChore, [field]: value }
     onChange(updatedChore)
-    
+
     if (touched[field]) {
       const error = validateField(field, value)
       setErrors(prev => ({ ...prev, [field]: error }))
@@ -56,12 +56,12 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     // Validate all fields
     const newErrors: ValidationErrors = {}
-    let hasErrors = false
-    
-    ;(['name', 'description', 'dueDate'] as const).forEach(field => {
+    let hasErrors = false;
+
+    (['name', 'description', 'dueDate'] as const).forEach(field => {
       const error = validateField(field, editedChore[field] as string)
       if (error) {
         newErrors[field] = error
@@ -130,6 +130,7 @@ export function ChoreEditForm({ editedChore, onSubmit, onCancel, onChange }: Cho
         <Input
           id="dueDate"
           type="date"
+          min={new Date().toISOString().split('T')[0]}
           value={editedChore.dueDate.split('T')[0]}
           onChange={(e) => handleChange('dueDate', e.target.value)}
           onBlur={() => handleBlur('dueDate')}
