@@ -1,0 +1,7 @@
+﻿{
+  "TestData": {
+    "Actor1": "Parent",
+    "Actor2":  "Child"
+
+  }
+}
